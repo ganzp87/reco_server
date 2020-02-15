@@ -1,0 +1,20 @@
+type AppleApp {
+	id: Int
+	appId: String
+	title: String
+	url: String
+	description: String
+	icon: String
+	languages: [String]
+	released: String
+	updated: String
+	releaseNotes: String
+	developer: String
+	developerUrl: String
+	developerWebsite: String
+	score: Float
+	reviews: Int
+	currentVersionReviews: Int
+	screenshots: [String]
+	genres: [String]
+}

@@ -1,0 +1,13 @@
+# scalar JSON
+type AppleGetSearchResponse {
+	appleApps: [AppleApp]
+	error: String
+}
+
+type Query {
+	AppleGetSearch(
+		searchWords: String!
+		language: String!
+		country: String!
+	): AppleGetSearchResponse!
+}

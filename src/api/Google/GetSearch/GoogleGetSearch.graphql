@@ -1,0 +1,13 @@
+scalar JSON
+type GoogleGetSearchResponse {
+	googleApp: [GoogleApp]
+	error: String
+}
+
+type Query {
+	GoogleGetSearch(
+		searchWords: String!
+		language: String!
+		country: String!
+	): GoogleGetSearchResponse!
+}
