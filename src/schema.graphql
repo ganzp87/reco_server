@@ -6,9 +6,9 @@ type AppleGetFullDetailResponse {
 
 type Query {
   AppleGetFullDetail: AppleGetFullDetailResponse!
-  AppleGetSearch(searchWords: String!, language: String!, country: String!): AppleGetSearchResponse!
+  AppleGetSearch(searchWords: String!, language: String!, country: String!, category: String!): AppleGetSearchResponse!
   GoogleGetFullDetail(appId: String!): GoogleGetFullDetailResponse!
-  GoogleGetSearch(searchWords: String!, language: String!, country: String!): GoogleGetSearchResponse!
+  GoogleGetSearch(searchWords: String!, language: String!, country: String!, category: String!): GoogleGetSearchResponse!
 }
 
 # scalar JSON
@@ -18,24 +18,26 @@ type AppleGetSearchResponse {
 }
 
 type AppleApp {
+  generatedId: Int
   id: Int
   appId: String
   title: String
   url: String
   description: String
   icon: String
+  country: String
+  language: String
+  category: String
   languages: [String]
-  released: String
-  updated: String
-  releaseNotes: String
   developer: String
-  developerUrl: String
-  developerWebsite: String
   score: Float
   reviews: Int
   currentVersionReviews: Int
   screenshots: [String]
   genres: [String]
+  primaryGenre: String
+  createdAt: String
+  updatedAt: String
 }
 
 scalar JSON
@@ -55,26 +57,20 @@ type GoogleApp {
   title: String
   url: String
   description: String
-  descriptionHTML: String
   summary: String
   installs: String
-  minInstalls: Int
   icon: String
-  languages: [String]
-  released: String
-  updated: String
-  releaseNotes: String
-  developer: String
-  developerUrl: String
-  developerWebsite: String
-  srore: Float
+  country: String
+  language: String
+  category: String
+  score: Float
   scoreText: String
   reviews: Int
   ratings: Int
-  currentVersionReviews: Int
   screenshots: [String]
   genre: String
-  genreId: Int
-  familyGenre: String
-  familyGenreId: Int
+  genreId: String
+  comments: [String]
+  createdAt: String
+  updatedAt: String
 }

@@ -1,0 +1,23 @@
+{
+	"genre": {
+		"food": [
+			"Games",
+			"Simulation",
+			"Casual",
+			"게임",
+			"시뮬레이션",
+			"캐주얼",
+			"내비게이션",
+			"Navigation",
+			"엔터테인먼트",
+			"Entertainment"
+		],
+		"navigation": ["Food", "쇼핑"]
+	},
+	"genreId": {
+		"food": ["GAME", "NAVIGATION", "COMICS"]
+	},
+	"summary": {
+		"food": ["game", "Game"]
+	}
+}

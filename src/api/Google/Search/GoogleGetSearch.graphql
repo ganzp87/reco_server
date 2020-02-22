@@ -1,4 +1,3 @@
-scalar JSON
 type GoogleGetSearchResponse {
 	googleApp: [GoogleApp]
 	error: String
@@ -9,5 +8,6 @@ type Query {
 		searchWords: String!
 		language: String!
 		country: String!
+		category: String!
 	): GoogleGetSearchResponse!
 }

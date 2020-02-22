@@ -1,4 +1,4 @@
-export const typeDefs = ["# scalar JSON\ntype AppleGetFullDetailResponse {\n  appleApp: AppleApp\n  error: String\n}\n\ntype Query {\n  AppleGetFullDetail: AppleGetFullDetailResponse!\n  AppleGetSearch(searchWords: String!, language: String!, country: String!): AppleGetSearchResponse!\n  GoogleGetFullDetail(appId: String!): GoogleGetFullDetailResponse!\n  GoogleGetSearch(searchWords: String!, language: String!, country: String!): GoogleGetSearchResponse!\n}\n\n# scalar JSON\ntype AppleGetSearchResponse {\n  appleApps: [AppleApp]\n  error: String\n}\n\ntype AppleApp {\n  id: Int\n  appId: String\n  title: String\n  url: String\n  description: String\n  icon: String\n  languages: [String]\n  released: String\n  updated: String\n  releaseNotes: String\n  developer: String\n  developerUrl: String\n  developerWebsite: String\n  score: Float\n  reviews: Int\n  currentVersionReviews: Int\n  screenshots: [String]\n  genres: [String]\n}\n\nscalar JSON\n\ntype GoogleGetFullDetailResponse {\n  googleApp: GoogleApp\n  error: String\n}\n\ntype GoogleGetSearchResponse {\n  googleApp: [GoogleApp]\n  error: String\n}\n\ntype GoogleApp {\n  appId: String\n  title: String\n  url: String\n  description: String\n  descriptionHTML: String\n  summary: String\n  installs: String\n  minInstalls: Int\n  icon: String\n  languages: [String]\n  released: String\n  updated: String\n  releaseNotes: String\n  developer: String\n  developerUrl: String\n  developerWebsite: String\n  srore: Float\n  scoreText: String\n  reviews: Int\n  ratings: Int\n  currentVersionReviews: Int\n  screenshots: [String]\n  genre: String\n  genreId: Int\n  familyGenre: String\n  familyGenreId: Int\n}\n"];
+export const typeDefs = ["# scalar JSON\ntype AppleGetFullDetailResponse {\n  appleApp: AppleApp\n  error: String\n}\n\ntype Query {\n  AppleGetFullDetail: AppleGetFullDetailResponse!\n  AppleGetSearch(searchWords: String!, language: String!, country: String!, category: String!): AppleGetSearchResponse!\n  GoogleGetFullDetail(appId: String!): GoogleGetFullDetailResponse!\n  GoogleGetSearch(searchWords: String!, language: String!, country: String!, category: String!): GoogleGetSearchResponse!\n}\n\n# scalar JSON\ntype AppleGetSearchResponse {\n  appleApps: [AppleApp]\n  error: String\n}\n\ntype AppleApp {\n  generatedId: Int\n  id: Int\n  appId: String\n  title: String\n  url: String\n  description: String\n  icon: String\n  country: String\n  language: String\n  category: String\n  languages: [String]\n  developer: String\n  score: Float\n  reviews: Int\n  currentVersionReviews: Int\n  screenshots: [String]\n  genres: [String]\n  primaryGenre: String\n  createdAt: String\n  updatedAt: String\n}\n\nscalar JSON\n\ntype GoogleGetFullDetailResponse {\n  googleApp: GoogleApp\n  error: String\n}\n\ntype GoogleGetSearchResponse {\n  googleApp: [GoogleApp]\n  error: String\n}\n\ntype GoogleApp {\n  appId: String\n  title: String\n  url: String\n  description: String\n  summary: String\n  installs: String\n  icon: String\n  country: String\n  language: String\n  category: String\n  score: Float\n  scoreText: String\n  reviews: Int\n  ratings: Int\n  screenshots: [String]\n  genre: String\n  genreId: String\n  comments: [String]\n  createdAt: String\n  updatedAt: String\n}\n"];
 /* tslint:disable */
 
 export interface Query {
@@ -12,6 +12,7 @@ export interface AppleGetSearchQueryArgs {
   searchWords: string;
   language: string;
   country: string;
+  category: string;
 }
 
 export interface GoogleGetFullDetailQueryArgs {
@@ -22,6 +23,7 @@ export interface GoogleGetSearchQueryArgs {
   searchWords: string;
   language: string;
   country: string;
+  category: string;
 }
 
 export interface AppleGetFullDetailResponse {
@@ -30,24 +32,26 @@ export interface AppleGetFullDetailResponse {
 }
 
 export interface AppleApp {
+  generatedId: number | null;
   id: number | null;
   appId: string | null;
   title: string | null;
   url: string | null;
   description: string | null;
   icon: string | null;
+  country: string | null;
+  language: string | null;
+  category: string | null;
   languages: Array<string> | null;
-  released: string | null;
-  updated: string | null;
-  releaseNotes: string | null;
   developer: string | null;
-  developerUrl: string | null;
-  developerWebsite: string | null;
   score: number | null;
   reviews: number | null;
   currentVersionReviews: number | null;
   screenshots: Array<string> | null;
   genres: Array<string> | null;
+  primaryGenre: string | null;
+  createdAt: string | null;
+  updatedAt: string | null;
 }
 
 export interface AppleGetSearchResponse {
@@ -65,28 +69,22 @@ export interface GoogleApp {
   title: string | null;
   url: string | null;
   description: string | null;
-  descriptionHTML: string | null;
   summary: string | null;
   installs: string | null;
-  minInstalls: number | null;
   icon: string | null;
-  languages: Array<string> | null;
-  released: string | null;
-  updated: string | null;
-  releaseNotes: string | null;
-  developer: string | null;
-  developerUrl: string | null;
-  developerWebsite: string | null;
-  srore: number | null;
+  country: string | null;
+  language: string | null;
+  category: string | null;
+  score: number | null;
   scoreText: string | null;
   reviews: number | null;
   ratings: number | null;
-  currentVersionReviews: number | null;
   screenshots: Array<string> | null;
   genre: string | null;
-  genreId: number | null;
-  familyGenre: string | null;
-  familyGenreId: number | null;
+  genreId: string | null;
+  comments: Array<string> | null;
+  createdAt: string | null;
+  updatedAt: string | null;
 }
 
 export interface GoogleGetSearchResponse {

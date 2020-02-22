@@ -7,7 +7,8 @@ const resolvers: Resolvers = {
 		AppleGetFullDetail: async (): Promise<AppleGetFullDetailResponse> => {
 			try {
 				const appStoreResult = await appStore.app({
-					id: "553834731"
+					id: "553834731",
+					throttle: 10
 				})
 				if (appStoreResult) {
 					return {

@@ -4,6 +4,7 @@ import {
 	GoogleGetFullDetailQueryArgs
 } from "../../../types/graphql"
 import { Resolvers } from "../../../types/resolvers"
+import GoogleApp from "../../../entities/GoogleApp"
 
 const resolvers: Resolvers = {
 	Query: {
@@ -12,8 +13,9 @@ const resolvers: Resolvers = {
 			args: GoogleGetFullDetailQueryArgs
 		): Promise<GoogleGetFullDetailResponse> => {
 			try {
-				const gPlayResult = await gplay.app({
-					appId: args.appId
+				const gPlayResult: GoogleApp = await gplay.app({
+					appId: args.appId,
+					throttle: 10
 				})
 				if (gPlayResult) {
 					return {

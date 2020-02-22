@@ -9,5 +9,6 @@ type Query {
 		searchWords: String!
 		language: String!
 		country: String!
+		category: String!
 	): AppleGetSearchResponse!
 }
