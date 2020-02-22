@@ -1,7 +1,8 @@
 // typescript 설정하기 위한 파일
 {
 	"compilerOptions": {
-		// "baseUrl": ".",
+		"baseUrl": ".",
+		"outDir": "dist",
 		"module": "commonjs",
 		"target": "es5",
 		"lib": ["es6", "dom", "esnext.asynciterable"],
@@ -29,6 +30,7 @@
 		"acceptance-tests",
 		"webpack",
 		"jest",
-		"src/setupTests.ts"
+		"src/setupTests.ts",
+		"dist"
 	]
 }

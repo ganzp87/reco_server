@@ -23,6 +23,7 @@
 		"@types/memoizee": "^0.4.3",
 		"@types/morgan": "^1.7.37",
 		"babel-runtime": "^6.26.0",
+		"copy": "^0.3.2",
 		"gql-merge": "^0.0.6",
 		"graphql-to-typescript": "^0.1.2",
 		"nodemon": "^2.0.2",
@@ -33,7 +34,9 @@
 		"dev": "cd src && nodemon --exec ts-node index.ts -e ts,graphql",
 		"pretypes": "gql-merge --out-file ./src/schema.graphql ./src/api/**/*.graphql",
 		"types": "graphql-to-typescript ./src/schema.graphql ./src/types/graphql.d.ts",
-		"prebuild": "rm -rf dist",
-		"build": "tsc"
+		"prebuild": "rd /s /q dist",
+		"build": "tsc",
+		"postbuild": "yarn copy src/api/**/*.graphql dist/api",
+		"start": "cd dist && node ."
 	}
 }
