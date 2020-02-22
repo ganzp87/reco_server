@@ -16,7 +16,7 @@ class AppleApp extends BaseEntity {
 	@Column({ type: "text", unique: true })
 	id: number
 
-	@Column({ type: "text", unique: true })
+	@Column({ type: "text" })
 	appId: string
 
 	@Column({ type: "text" })

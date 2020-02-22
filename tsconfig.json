@@ -2,7 +2,8 @@
 {
 	"compilerOptions": {
 		"baseUrl": ".",
-		"outDir": "dist",
+		"outDir": "./dist",
+		"rootDirs": ["src"],
 		"module": "commonjs",
 		"target": "es5",
 		"lib": ["es6", "dom", "esnext.asynciterable"],
@@ -31,6 +32,7 @@
 		"webpack",
 		"jest",
 		"src/setupTests.ts",
-		"dist"
+		"lib",
+		"tests"
 	]
 }

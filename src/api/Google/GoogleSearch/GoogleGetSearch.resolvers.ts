@@ -4,7 +4,7 @@ import {
 } from "../../../types/graphql"
 import gplay from "google-play-scraper"
 import { Resolvers } from "../../../types/resolvers"
-import genres from "../../../data/googleGenres.json"
+import genres from "../../../raw/googleGenres.json"
 import GoogleApp from "../../../entities/GoogleApp"
 // import { cleanNullArg } from "../../../utils/cleanNullArg"
 // import { getConnection } from "typeorm"

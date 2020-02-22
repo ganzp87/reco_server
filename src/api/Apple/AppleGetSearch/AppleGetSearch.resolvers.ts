@@ -4,7 +4,7 @@ import {
 } from "../../../types/graphql"
 import appStore from "app-store-scraper"
 import { Resolvers } from "../../../types/resolvers"
-import genres from "../../../data/googleGenres.json"
+import genres from "../../../raw/googleGenres.json"
 import AppleApp from "../../../entities/AppleApp"
 import { cleanNullArg } from "../../../utils/cleanNullArg"
 

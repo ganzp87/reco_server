@@ -1,4 +1,4 @@
-export const typeDefs = ["# scalar JSON\ntype AppleGetFullDetailResponse {\n  appleApp: AppleApp\n  error: String\n}\n\ntype Query {\n  AppleGetFullDetail: AppleGetFullDetailResponse!\n  AppleGetSearch(searchWords: String!, language: String!, country: String!, category: String!): AppleGetSearchResponse!\n  GoogleGetFullDetail(appId: String!): GoogleGetFullDetailResponse!\n  GoogleGetSearch(searchWords: String!, language: String!, country: String!, category: String!): GoogleGetSearchResponse!\n}\n\n# scalar JSON\ntype AppleGetSearchResponse {\n  appleApps: [AppleApp]\n  error: String\n}\n\ntype AppleApp {\n  generatedId: Int\n  id: Int\n  appId: String\n  title: String\n  url: String\n  description: String\n  icon: String\n  country: String\n  language: String\n  category: String\n  languages: [String]\n  developer: String\n  score: Float\n  reviews: Int\n  currentVersionReviews: Int\n  screenshots: [String]\n  genres: [String]\n  primaryGenre: String\n  createdAt: String\n  updatedAt: String\n}\n\nscalar JSON\n\ntype GoogleGetFullDetailResponse {\n  googleApp: GoogleApp\n  error: String\n}\n\ntype GoogleGetSearchResponse {\n  googleApp: [GoogleApp]\n  error: String\n}\n\ntype GoogleApp {\n  appId: String\n  title: String\n  url: String\n  description: String\n  summary: String\n  installs: String\n  icon: String\n  country: String\n  language: String\n  category: String\n  score: Float\n  scoreText: String\n  reviews: Int\n  ratings: Int\n  screenshots: [String]\n  genre: String\n  genreId: String\n  comments: [String]\n  createdAt: String\n  updatedAt: String\n}\n"];
+export const typeDefs = ["# scalar JSON\ntype AppleGetFullDetailResponse {\n  appleApp: AppleApp\n  error: String\n}\n\ntype Query {\n  AppleGetFullDetail: AppleGetFullDetailResponse!\n  AppleGetSearch(searchWords: String!, language: String!, country: String!, category: String!): AppleGetSearchResponse!\n  GoogleGetFullDetail(appId: String!): GoogleGetFullDetailResponse!\n  GoogleGetSearch(searchWords: String!, language: String!, country: String!, category: String!): GoogleGetSearchResponse!\n}\n\n# scalar JSON\ntype AppleGetSearchResponse {\n  appleApps: [AppleApp]\n  error: String\n}\n\ntype AppleApp {\n  generatedId: Int\n  id: Int\n  appId: String\n  title: String\n  url: String\n  description: String\n  icon: String\n  country: String\n  language: String\n  category: String\n  languages: [String]\n  developer: String\n  score: Float\n  reviews: Int\n  currentVersionReviews: Int\n  screenshots: [String]\n  genres: [String]\n  primaryGenre: String\n  createdAt: String\n  updatedAt: String\n}\n\nscalar JSON\n\ntype GoogleGetFullDetailResponse {\n  googleApp: GoogleApp\n  error: String\n}\n\ntype GoogleGetSearchResponse {\n  googleApp: [GoogleApp]\n  error: String\n}\n\ntype GoogleApp {\n  appId: String\n  title: String\n  url: String\n  description: String\n  summary: String\n  installs: String\n  icon: String\n  country: String\n  language: String\n  category: String\n  score: Float\n  scoreText: String\n  reviews: Int\n  ratings: Int\n  screenshots: [String]\n  genre: String\n  genreId: String\n  comments: [String]\n  createdAt: String\n  updatedAt: String\n}\n\ntype TestGetFullDetailResponse {\n  result: String\n  error: String\n}\n\ntype Mutation {\n  TestGetFullDetail(name: String!): TestGetFullDetailResponse!\n}\n"];
 /* tslint:disable */
 
 export interface Query {
@@ -89,6 +89,19 @@ export interface GoogleApp {
 
 export interface GoogleGetSearchResponse {
   googleApp: Array<GoogleApp> | null;
+  error: string | null;
+}
+
+export interface Mutation {
+  TestGetFullDetail: TestGetFullDetailResponse;
+}
+
+export interface TestGetFullDetailMutationArgs {
+  name: string;
+}
+
+export interface TestGetFullDetailResponse {
+  result: string | null;
   error: string | null;
 }
 

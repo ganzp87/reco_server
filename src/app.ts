@@ -19,6 +19,7 @@ class App {
 					context
 				}
 			}
+			// middlewares: [logInput, logResult]
 		})
 		this.middlewares()
 	}
@@ -28,5 +29,19 @@ class App {
 		this.app.express.use(helmet())
 	}
 }
+// const logInput = async (resolve, root, args, context, info) => {
+// 	console.log(`1. logInput: ${JSON.stringify(args)}`)
+// 	console.log(context)
+// 	const result = await resolve(root, args, context, info)
+// 	console.log(`5. logInput`)
+// 	return result
+// }
+
+// const logResult = async (resolve, root, args, context, info) => {
+// 	console.log(`2. logResult`)
+// 	const result = await resolve(root, args, context, info)
+// 	console.log(`4. logResult: ${JSON.stringify(result)}`)
+// 	return result
+// }
 
 export default new App().app

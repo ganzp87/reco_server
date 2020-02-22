@@ -1,0 +1,8 @@
+type TestGetFullDetailResponse {
+	result: String
+	error: String
+}
+
+type Mutation {
+	TestGetFullDetail(name: String!): TestGetFullDetailResponse!
+}

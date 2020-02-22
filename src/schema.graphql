@@ -74,3 +74,12 @@ type GoogleApp {
   createdAt: String
   updatedAt: String
 }
+
+type TestGetFullDetailResponse {
+  result: String
+  error: String
+}
+
+type Mutation {
+  TestGetFullDetail(name: String!): TestGetFullDetailResponse!
+}
