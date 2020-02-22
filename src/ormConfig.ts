@@ -2,7 +2,7 @@ import { ConnectionOptions } from "typeorm"
 
 const connectionOptions: ConnectionOptions = {
 	type: "postgres",
-	database: "reco",
+	database: process.env.DB_NAME || "reco",
 	synchronize: true,
 	logging: true,
 	entities: ["entities/*.*"],
