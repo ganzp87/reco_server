@@ -44,7 +44,7 @@
 		"dev": "cd src && nodemon --exec ts-node index.ts -e ts,graphql",
 		"pretypes": "gql-merge --out-file ./src/schema.graphql ./src/api/**/*.graphql",
 		"types": "graphql-to-typescript ./src/schema.graphql ./src/types/graphql.d.ts",
-		"prebuild": "rmdir /s /q dist",
+		"prebuild": "ri /s /q dist",
 		"build": "tsc",
 		"postbuild": "yarn copy src/api/**/*.graphql dist/api",
 		"start": "cd dist && node ."
