@@ -1,9 +1,0 @@
-# scalar JSON
-type AppleGetFullDetailResponse {
-	appleApp: AppleApp
-	error: String
-}
-
-type Query {
-	AppleGetFullDetail: AppleGetFullDetailResponse!
-}

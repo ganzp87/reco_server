@@ -1,17 +1,17 @@
 import gplay from "google-play-scraper"
 import {
-	GoogleGetFullDetailResponse,
-	GoogleGetFullDetailQueryArgs
+	GoogleSaveFullDetailResponse,
+	GoogleSaveFullDetailQueryArgs
 } from "../../../types/graphql"
 import { Resolvers } from "../../../types/resolvers"
 import GoogleApp from "../../../entities/GoogleApp"
 
 const resolvers: Resolvers = {
 	Query: {
-		GoogleGetFullDetail: async (
+		GoogleSaveFullDetail: async (
 			_,
-			args: GoogleGetFullDetailQueryArgs
-		): Promise<GoogleGetFullDetailResponse> => {
+			args: GoogleSaveFullDetailQueryArgs
+		): Promise<GoogleSaveFullDetailResponse> => {
 			try {
 				const gPlayResult: GoogleApp = await gplay.app({
 					appId: args.appId,

@@ -1,0 +1,14 @@
+# scalar JSON
+type AppleSaveSearchResponse {
+	appleApps: [AppleApp]
+	error: String
+}
+
+type Query {
+	AppleSaveSearch(
+		searchWords: String!
+		language: String!
+		country: String!
+		category: String!
+	): AppleSaveSearchResponse!
+}

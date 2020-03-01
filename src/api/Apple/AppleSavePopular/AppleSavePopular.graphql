@@ -1,0 +1,13 @@
+# scalar JSON
+type AppleSavePopularResponse {
+	appleApps: [AppleApp]
+	error: String
+}
+
+type Query {
+	AppleSavePopular(
+		language: String!
+		country: String!
+		category: String!
+	): AppleSavePopularResponse!
+}

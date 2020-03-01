@@ -12,6 +12,8 @@ type AppleApp {
 	languages: [String]
 	developer: String
 	score: Float
+	ratings: Int
+	contentRating: String
 	reviews: Int
 	currentVersionReviews: Int
 	screenshots: [String]

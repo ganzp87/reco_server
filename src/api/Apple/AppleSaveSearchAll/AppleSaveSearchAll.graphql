@@ -1,0 +1,9 @@
+# scalar JSON
+type AppleSaveSearchAllResponse {
+	appleApps: [AppleApp]
+	error: String
+}
+
+type Query {
+	AppleSaveSearchAll(category: String): AppleSaveSearchAllResponse!
+}

@@ -19,7 +19,7 @@ class App {
 					context
 				}
 			}
-			// middlewares: [logInput, logResult]
+			// middlewares: [logInput]
 		})
 		this.middlewares()
 	}

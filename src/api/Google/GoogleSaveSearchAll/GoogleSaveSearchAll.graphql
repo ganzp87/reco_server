@@ -1,0 +1,8 @@
+type GoogleSaveSearchAllResponse {
+	googleApp: [GoogleApp]
+	error: String
+}
+
+type Query {
+	GoogleSaveSearchAll(category: String): GoogleSaveSearchAllResponse!
+}

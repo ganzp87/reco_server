@@ -1,14 +1,13 @@
-# scalar JSON
-type AppleGetSearchResponse {
-	appleApps: [AppleApp]
+type GoogleSaveSearchResponse {
+	googleApp: [GoogleApp]
 	error: String
 }
 
 type Query {
-	AppleGetSearch(
+	GoogleSaveSearch(
 		searchWords: String!
 		language: String!
 		country: String!
 		category: String!
-	): AppleGetSearchResponse!
+	): GoogleSaveSearchResponse!
 }

@@ -1,13 +1,12 @@
-type GoogleGetSearchResponse {
+type GoogleGetAppResponse {
 	googleApp: [GoogleApp]
 	error: String
 }
 
 type Query {
-	GoogleGetSearch(
-		searchWords: String!
+	GoogleGetApp(
 		language: String!
 		country: String!
 		category: String!
-	): GoogleGetSearchResponse!
+	): GoogleGetAppResponse!
 }

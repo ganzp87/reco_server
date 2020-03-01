@@ -51,6 +51,12 @@ class AppleApp extends BaseEntity {
 	@Column({ type: "double precision", default: 0, nullable: true })
 	score: number
 
+	@Column({ type: "text", nullable: true })
+	contentRating: string
+
+	@Column({ type: "int", nullable: true })
+	ratings: number
+
 	@Column({ type: "int", nullable: true })
 	reviews: number
 

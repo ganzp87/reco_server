@@ -1,18 +1,47 @@
-# scalar JSON
-type AppleGetFullDetailResponse {
-  appleApp: AppleApp
+type AppleGetAppResponse {
+  appleApp: [AppleApp]
   error: String
 }
 
 type Query {
-  AppleGetFullDetail: AppleGetFullDetailResponse!
-  AppleGetSearch(searchWords: String!, language: String!, country: String!, category: String!): AppleGetSearchResponse!
-  GoogleGetFullDetail(appId: String!): GoogleGetFullDetailResponse!
-  GoogleGetSearch(searchWords: String!, language: String!, country: String!, category: String!): GoogleGetSearchResponse!
+  AppleGetApp(language: String!, country: String!, category: String!): AppleGetAppResponse!
+  AppleSaveFullDetail(id: String!): AppleSaveFullDetailResponse!
+  AppleSavePopular(language: String!, country: String!, category: String!): AppleSavePopularResponse!
+  AppleSaveSearch(searchWords: String!, language: String!, country: String!, category: String!): AppleSaveSearchResponse!
+  AppleSaveSearchAll(category: String): AppleSaveSearchAllResponse!
+  AppleSaveTopList(appleCollection: AppleCollections!, appleCategory: AppleCategories!, country: String!, category: String!): AppleSaveTopListResponse!
+  GoogleGetApp(language: String!, country: String!, category: String!): GoogleGetAppResponse!
+  GoogleSaveFullDetail(appId: String!): GoogleSaveFullDetailResponse!
+  GoogleSaveSearch(searchWords: String!, language: String!, country: String!, category: String!): GoogleSaveSearchResponse!
+  GoogleSaveSearchAll(category: String): GoogleSaveSearchAllResponse!
 }
 
 # scalar JSON
-type AppleGetSearchResponse {
+type AppleSaveFullDetailResponse {
+  appleApp: AppleApp
+  error: String
+}
+
+# scalar JSON
+type AppleSavePopularResponse {
+  appleApps: [AppleApp]
+  error: String
+}
+
+# scalar JSON
+type AppleSaveSearchResponse {
+  appleApps: [AppleApp]
+  error: String
+}
+
+# scalar JSON
+type AppleSaveSearchAllResponse {
+  appleApps: [AppleApp]
+  error: String
+}
+
+# scalar JSON
+type AppleSaveTopListResponse {
   appleApps: [AppleApp]
   error: String
 }
@@ -31,6 +60,8 @@ type AppleApp {
   languages: [String]
   developer: String
   score: Float
+  ratings: Int
+  contentRating: String
   reviews: Int
   currentVersionReviews: Int
   screenshots: [String]
@@ -40,14 +71,113 @@ type AppleApp {
   updatedAt: String
 }
 
+enum AppleCategories {
+  BOOKS
+  BUSINESS
+  CATALOGS
+  EDUCATION
+  ENTERTAINMENT
+  FINANCE
+  FOOD_AND_DRINK
+  GAMES
+  GAMES_ACTION
+  GAMES_ADVENTURE
+  GAMES_ARCADE
+  GAMES_BOARD
+  GAMES_CARD
+  GAMES_CASINO
+  GAMES_DICE
+  GAMES_EDUCATIONAL
+  GAMES_FAMILY
+  GAMES_MUSIC
+  GAMES_PUZZLE
+  GAMES_RACING
+  GAMES_ROLE_PLAYING
+  GAMES_SIMULATION
+  GAMES_SPORTS
+  GAMES_STRATEGY
+  GAMES_TRIVIA
+  GAMES_WORD
+  HEALTH_AND_FITNESS
+  LIFESTYLE
+  MAGAZINES_AND_NEWSPAPERS
+  MAGAZINES_ARTS
+  MAGAZINES_AUTOMOTIVE
+  MAGAZINES_WEDDINGS
+  MAGAZINES_BUSINESS
+  MAGAZINES_CHILDREN
+  MAGAZINES_COMPUTER
+  MAGAZINES_FOOD
+  MAGAZINES_CRAFTS
+  MAGAZINES_ELECTRONICS
+  MAGAZINES_ENTERTAINMENT
+  MAGAZINES_FASHION
+  MAGAZINES_HEALTH
+  MAGAZINES_HISTORY
+  MAGAZINES_HOME
+  MAGAZINES_LITERARY
+  MAGAZINES_MEN
+  MAGAZINES_MOVIES_AND_MUSIC
+  MAGAZINES_POLITICS
+  MAGAZINES_OUTDOORS
+  MAGAZINES_FAMILY
+  MAGAZINES_PETS
+  MAGAZINES_PROFESSIONAL
+  MAGAZINES_REGIONAL
+  MAGAZINES_SCIENCE
+  MAGAZINES_SPORTS
+  MAGAZINES_TEENS
+  MAGAZINES_TRAVEL
+  MAGAZINES_WOMEN
+  MEDICAL
+  MUSIC
+  NAVIGATION
+  NEWS
+  PHOTO_AND_VIDEO
+  PRODUCTIVITY
+  REFERENCE
+  SHOPPING
+  SOCIAL_NETWORKING
+  SPORTS
+  TRAVEL
+  UTILITIES
+  WEATHER
+}
+
+enum AppleCollections {
+  TOP_MAC
+  TOP_FREE_MAC
+  TOP_GROSSING_MAC
+  TOP_PAID_MAC
+  NEW_IOS
+  NEW_FREE_IOS
+  NEW_PAID_IOS
+  TOP_FREE_IOS
+  TOP_FREE_IPAD
+  TOP_GROSSING_IOS
+  TOP_GROSSING_IPAD
+  TOP_PAID_IOS
+  TOP_PAID_IPAD
+}
+
+type GoogleGetAppResponse {
+  googleApp: [GoogleApp]
+  error: String
+}
+
 scalar JSON
 
-type GoogleGetFullDetailResponse {
+type GoogleSaveFullDetailResponse {
   googleApp: GoogleApp
   error: String
 }
 
-type GoogleGetSearchResponse {
+type GoogleSaveSearchResponse {
+  googleApp: [GoogleApp]
+  error: String
+}
+
+type GoogleSaveSearchAllResponse {
   googleApp: [GoogleApp]
   error: String
 }
@@ -73,13 +203,4 @@ type GoogleApp {
   comments: [String]
   createdAt: String
   updatedAt: String
-}
-
-type TestGetFullDetailResponse {
-  result: String
-  error: String
-}
-
-type Mutation {
-  TestGetFullDetail(name: String!): TestGetFullDetailResponse!
 }

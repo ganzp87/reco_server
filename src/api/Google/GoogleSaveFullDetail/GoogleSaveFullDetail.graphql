@@ -1,0 +1,9 @@
+scalar JSON
+type GoogleSaveFullDetailResponse {
+	googleApp: GoogleApp
+	error: String
+}
+
+type Query {
+	GoogleSaveFullDetail(appId: String!): GoogleSaveFullDetailResponse!
+}

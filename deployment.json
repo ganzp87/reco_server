@@ -1,0 +1,53 @@
+{
+  "id": "/subscriptions/d78564e4-d428-45e9-9cca-a9af7aaf7f17/resourceGroups/recoApp/providers/Microsoft.Resources/deployments/Microsoft.CognitiveServicesTextTranslation",
+  "name": "Microsoft.CognitiveServicesTextTranslation",
+  "type": "Microsoft.Resources/deployments",
+  "tags": {
+    "primaryResourceId": "/subscriptions/d78564e4-d428-45e9-9cca-a9af7aaf7f17/resourcegroups/recoApp/providers/Microsoft.CognitiveServices/accounts/recoApp",
+    "marketplaceItemId": "Microsoft.CognitiveServicesTextTranslation"
+  },
+  "properties": {
+    "templateHash": "12479349499275681034",
+    "parameters": {
+      "name": {
+        "type": "String",
+        "value": "recoApp"
+      },
+      "location": {
+        "type": "String",
+        "value": "global"
+      },
+      "apiType": {
+        "type": "String",
+        "value": "TextTranslation"
+      },
+      "sku": {
+        "type": "String",
+        "value": "F0"
+      }
+    },
+    "mode": "Incremental",
+    "debugSetting": {
+      "detailLevel": "None"
+    },
+    "provisioningState": "Running",
+    "timestamp": "2020-02-24T13:39:14.2917979Z",
+    "duration": "PT0.2670143S",
+    "correlationId": "6d2ab0df-c46e-4593-81d9-996372f0929a",
+    "providers": [
+      {
+        "namespace": "Microsoft.CognitiveServices",
+        "resourceTypes": [
+          {
+            "resourceType": "accounts",
+            "locations": [
+              "global"
+            ]
+          }
+        ]
+      }
+    ],
+    "dependencies": [],
+    "validationLevel": "Template"
+  }
+}

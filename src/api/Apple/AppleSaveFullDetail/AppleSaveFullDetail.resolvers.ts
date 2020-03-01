@@ -1,14 +1,23 @@
 import appStore from "app-store-scraper"
-import { AppleGetFullDetailResponse } from "../../../types/graphql"
+import {
+	AppleSaveFullDetailResponse,
+	AppleSaveFullDetailQueryArgs
+} from "../../../types/graphql"
 import { Resolvers } from "../../../types/resolvers"
 
 const resolvers: Resolvers = {
 	Query: {
-		AppleGetFullDetail: async (): Promise<AppleGetFullDetailResponse> => {
+		AppleSaveFullDetail: async (
+			_,
+			arg: AppleSaveFullDetailQueryArgs
+		): Promise<AppleSaveFullDetailResponse> => {
+			const { id } = arg
 			try {
 				const appStoreResult = await appStore.app({
-					id: "553834731",
-					throttle: 10
+					id,
+					throttle: 10,
+					country: "us",
+					ratings: true
 				})
 				if (appStoreResult) {
 					return {

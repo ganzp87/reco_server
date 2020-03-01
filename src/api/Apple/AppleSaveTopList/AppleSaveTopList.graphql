@@ -1,0 +1,14 @@
+# scalar JSON
+type AppleSaveTopListResponse {
+	appleApps: [AppleApp]
+	error: String
+}
+
+type Query {
+	AppleSaveTopList(
+		appleCollection: AppleCollections!
+		appleCategory: AppleCategories!
+		country: String!
+		category: String!
+	): AppleSaveTopListResponse!
+}

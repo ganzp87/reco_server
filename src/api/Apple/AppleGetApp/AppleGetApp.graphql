@@ -1,0 +1,12 @@
+type AppleGetAppResponse {
+	appleApp: [AppleApp]
+	error: String
+}
+
+type Query {
+	AppleGetApp(
+		language: String!
+		country: String!
+		category: String!
+	): AppleGetAppResponse!
+}

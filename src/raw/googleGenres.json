@@ -1,23 +1,25 @@
 {
-	"genre": {
-		"food": [
-			"Games",
-			"Simulation",
-			"Casual",
-			"게임",
-			"시뮬레이션",
-			"캐주얼",
-			"내비게이션",
-			"Navigation",
-			"엔터테인먼트",
-			"Entertainment"
-		],
-		"navigation": ["Food", "쇼핑"]
-	},
 	"genreId": {
-		"food": ["GAME", "NAVIGATION", "COMICS"]
+		"food": ["FOOD_AND_DRINK"],
+		"hotel": ["TRAVEL_AND_LOCAL", "BUSINESS"],
+		"map": ["MAPS_AND_NAVIGATION", "TRAVEL_AND_LOCAL"],
+		"translate": ["TRAVEL_AND_LOCAL", "TOOLS"],
+		"wifi": ["TOOLS", "LIFESTYLE", "TRAVEL_AND_LOCAL"],
+		"travel": [
+			"TRAVEL_AND_LOCAL",
+			"LIFESTYLE",
+			"ENTERTAINMENT",
+			"EVENTS",
+			"AUTO_AND_VEHICLES",
+			"SPORTS"
+		]
 	},
 	"summary": {
-		"food": ["game", "Game"]
+		"food": ["game", "Game"],
+		"hotel": ["game", "Game"],
+		"map": ["game", "Game"],
+		"translate": ["game", "Game"],
+		"wifi": ["game", "Game"],
+		"travel": ["game", "Game"]
 	}
 }

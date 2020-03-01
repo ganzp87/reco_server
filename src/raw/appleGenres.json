@@ -1,0 +1,18 @@
+{
+	"primaryGenre": {
+		"food": ["Food & Drink", "Travel", "Lifestyle"],
+		"hotel": ["Travel", "Business"],
+		"map": ["Navigation", "Travel"],
+		"translate": ["Productivity", "Utilities"],
+		"wifi": ["Utilities", "Lifestyle", "Travel"],
+		"travel": ["Travel", "Lifestyle", "Entertainment"]
+	},
+	"summary": {
+		"food": ["game", "Game"],
+		"hotel": ["game", "Game"],
+		"map": ["game", "Game"],
+		"translate": ["game", "Game"],
+		"wifi": ["game", "Game"],
+		"travel": ["game", "Game"]
+	}
+}

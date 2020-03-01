@@ -1,4 +1,3 @@
-// typescript 설정하기 위한 파일
 {
 	"compilerOptions": {
 		"baseUrl": ".",
@@ -33,6 +32,7 @@
 		"jest",
 		"src/setupTests.ts",
 		"lib",
-		"tests"
+		"tests",
+		"dist"
 	]
 }
