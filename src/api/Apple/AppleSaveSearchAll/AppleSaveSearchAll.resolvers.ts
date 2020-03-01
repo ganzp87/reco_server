@@ -10,7 +10,6 @@ import {
 	appleGenre
 } from "../../../raw/GlobalConstants"
 import AppleApp from "../../../entities/AppleApp"
-// import executeTranslator from "../../../utils/executeTranslator"
 
 function mapAsync(array, callbackfn) {
 	return Promise.all(array.map(callbackfn))
