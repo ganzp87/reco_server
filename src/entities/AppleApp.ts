@@ -60,6 +60,9 @@ class AppleApp extends BaseEntity {
 	@Column({ type: "int", nullable: true })
 	reviews: number
 
+	@Column({ type: "text", nullable: true })
+	comments: string[]
+
 	@Column({ type: "int", nullable: true })
 	currentVersionReviews: number
 

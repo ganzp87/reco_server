@@ -9,6 +9,5 @@ type Query {
 		appId: String!
 		country: String!
 		language: String!
-		category: String!
 	): GoogleGetFullDetailResponse!
 }

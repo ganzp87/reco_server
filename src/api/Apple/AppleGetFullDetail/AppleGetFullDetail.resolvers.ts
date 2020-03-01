@@ -4,6 +4,7 @@ import {
 } from "../../../types/graphql"
 import { Resolvers } from "../../../types/resolvers"
 import AppleApp from "../../../entities/AppleApp"
+import appStore from "app-store-scraper"
 
 const resolvers: Resolvers = {
 	Query: {
@@ -11,16 +12,32 @@ const resolvers: Resolvers = {
 			_,
 			arg: AppleGetFullDetailQueryArgs
 		): Promise<AppleGetFullDetailResponse> => {
-			const { appId, country, language, category } = arg
+			const { appId, country } = arg
 			try {
-				const appStoreResult:
-					| AppleApp
-					| undefined = await AppleApp.findOne({
+				const commentsContainer: any = []
+				const appStoreResult: AppleApp = await appStore.app({
 					appId,
 					country,
-					language,
-					category
+					ratings: true
 				})
+				const appReviews = await appStore.reviews({
+					appId,
+					sort: appStore.sort.HELPFUL,
+					country,
+					page: 1
+				})
+				for (const comment of appReviews) {
+					commentsContainer.push(comment.text)
+				}
+				// const appStoreResult:
+				// 	| AppleApp
+				// 	| undefined = await AppleApp.findOne({
+				// 	appId,
+				// 	country,
+				// 	language,
+				// 	category
+				// })
+				appStoreResult.comments = commentsContainer
 				if (appStoreResult) {
 					return {
 						appleApp: appStoreResult,

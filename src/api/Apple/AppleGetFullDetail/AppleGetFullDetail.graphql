@@ -8,7 +8,5 @@ type Query {
 	AppleGetFullDetail(
 		appId: String!
 		country: String!
-		language: String!
-		category: String!
 	): AppleGetFullDetailResponse!
 }

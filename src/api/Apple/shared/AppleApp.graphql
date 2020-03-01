@@ -15,6 +15,7 @@ type AppleApp {
 	ratings: Int
 	contentRating: String
 	reviews: Int
+	comments: [String]
 	currentVersionReviews: Int
 	screenshots: [String]
 	genres: [String]

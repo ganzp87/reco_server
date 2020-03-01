@@ -6,6 +6,10 @@ import {
 import { Resolvers } from "../../../types/resolvers"
 import GoogleApp from "../../../entities/GoogleApp"
 
+interface Comment {
+	text: string
+}
+
 const resolvers: Resolvers = {
 	Query: {
 		GoogleGetFullDetail: async (
@@ -27,6 +31,18 @@ const resolvers: Resolvers = {
 					lang: language,
 					country
 				})
+				const comments: Comment[] = await gplay.reviews({
+					appId,
+					lang: language,
+					country,
+					sort: gplay.sort.NEWEST,
+					num: 10
+				})
+				const commentsContainer: any = []
+				for (const comment of comments) {
+					commentsContainer.push(comment.text)
+				}
+				gPlayResult.comments = commentsContainer
 				if (gPlayResult) {
 					return {
 						googleApp: gPlayResult,

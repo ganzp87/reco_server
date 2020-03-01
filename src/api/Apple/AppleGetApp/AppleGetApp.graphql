@@ -8,5 +8,7 @@ type Query {
 		language: String!
 		country: String!
 		category: String!
+		searchCountry: String!
+		dataCount: Int!
 	): AppleGetAppResponse!
 }
