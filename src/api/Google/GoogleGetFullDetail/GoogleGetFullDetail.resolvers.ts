@@ -1,3 +1,4 @@
+import gplay from "google-play-scraper"
 import {
 	GoogleGetFullDetailResponse,
 	GoogleGetFullDetailQueryArgs
@@ -12,14 +13,19 @@ const resolvers: Resolvers = {
 			args: GoogleGetFullDetailQueryArgs
 		): Promise<GoogleGetFullDetailResponse> => {
 			try {
-				const { appId, country, language, category } = args
-				const gPlayResult:
-					| GoogleApp
-					| undefined = await GoogleApp.findOne({
+				const { appId, country, language } = args
+				// const gPlayResult:
+				// 	| GoogleApp
+				// 	| undefined = await GoogleApp.findOne({
+				// 	appId,
+				// 	country,
+				// 	language,
+				// 	category
+				// })
+				const gPlayResult: GoogleApp = await gplay.app({
 					appId,
-					country,
-					language,
-					category
+					lang: language,
+					country
 				})
 				if (gPlayResult) {
 					return {
