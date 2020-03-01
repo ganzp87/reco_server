@@ -1,0 +1,14 @@
+scalar JSON
+type GoogleGetFullDetailResponse {
+	googleApp: GoogleApp
+	error: String
+}
+
+type Query {
+	GoogleGetFullDetail(
+		appId: String!
+		country: String!
+		language: String!
+		category: String!
+	): GoogleGetFullDetailResponse!
+}

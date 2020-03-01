@@ -8,5 +8,6 @@ type Query {
 		language: String!
 		country: String!
 		category: String!
+		dataCount: Int!
 	): GoogleGetAppResponse!
 }

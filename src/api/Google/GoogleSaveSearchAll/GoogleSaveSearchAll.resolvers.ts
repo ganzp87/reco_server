@@ -61,7 +61,10 @@ const updateAppInfo = async (
 				const googleApp:
 					| GoogleApp
 					| undefined = await GoogleApp.findOne({
-					appId
+					appId,
+					country: app.country,
+					language: app.language,
+					category: app.category
 				})
 				if (googleApp) {
 					await GoogleApp.update(

@@ -5,19 +5,19 @@ type AppleGetAppResponse {
 
 type Query {
   AppleGetApp(language: String!, country: String!, category: String!): AppleGetAppResponse!
-  AppleSaveFullDetail(id: String!): AppleSaveFullDetailResponse!
+  AppleGetFullDetail(appId: String!, country: String!, language: String!, category: String!): AppleGetFullDetailResponse!
   AppleSavePopular(language: String!, country: String!, category: String!): AppleSavePopularResponse!
   AppleSaveSearch(searchWords: String!, language: String!, country: String!, category: String!): AppleSaveSearchResponse!
   AppleSaveSearchAll(category: String): AppleSaveSearchAllResponse!
   AppleSaveTopList(appleCollection: AppleCollections!, appleCategory: AppleCategories!, country: String!, category: String!): AppleSaveTopListResponse!
-  GoogleGetApp(language: String!, country: String!, category: String!): GoogleGetAppResponse!
-  GoogleSaveFullDetail(appId: String!): GoogleSaveFullDetailResponse!
+  GoogleGetApp(language: String!, country: String!, category: String!, dataCount: Int!): GoogleGetAppResponse!
+  GoogleGetFullDetail(appId: String!, country: String!, language: String!, category: String!): GoogleGetFullDetailResponse!
   GoogleSaveSearch(searchWords: String!, language: String!, country: String!, category: String!): GoogleSaveSearchResponse!
   GoogleSaveSearchAll(category: String): GoogleSaveSearchAllResponse!
 }
 
 # scalar JSON
-type AppleSaveFullDetailResponse {
+type AppleGetFullDetailResponse {
   appleApp: AppleApp
   error: String
 }
@@ -167,9 +167,18 @@ type GoogleGetAppResponse {
 
 scalar JSON
 
-type GoogleSaveFullDetailResponse {
+type GoogleGetFullDetailResponse {
   googleApp: GoogleApp
   error: String
+}
+
+type GoogleInspectResponse {
+  googleApp: GoogleApp
+  error: String
+}
+
+type Mutation {
+  GoogleInspect(appId: String!, country: String!, language: String!, category: String!): GoogleInspectResponse!
 }
 
 type GoogleSaveSearchResponse {
@@ -188,6 +197,7 @@ type GoogleApp {
   url: String
   description: String
   summary: String
+  summaryLanguage: String
   installs: String
   icon: String
   country: String

@@ -1,15 +1,15 @@
-export const typeDefs = ["type AppleGetAppResponse {\n  appleApp: [AppleApp]\n  error: String\n}\n\ntype Query {\n  AppleGetApp(language: String!, country: String!, category: String!): AppleGetAppResponse!\n  AppleSaveFullDetail(id: String!): AppleSaveFullDetailResponse!\n  AppleSavePopular(language: String!, country: String!, category: String!): AppleSavePopularResponse!\n  AppleSaveSearch(searchWords: String!, language: String!, country: String!, category: String!): AppleSaveSearchResponse!\n  AppleSaveSearchAll(category: String): AppleSaveSearchAllResponse!\n  AppleSaveTopList(appleCollection: AppleCollections!, appleCategory: AppleCategories!, country: String!, category: String!): AppleSaveTopListResponse!\n  GoogleGetApp(language: String!, country: String!, category: String!): GoogleGetAppResponse!\n  GoogleSaveFullDetail(appId: String!): GoogleSaveFullDetailResponse!\n  GoogleSaveSearch(searchWords: String!, language: String!, country: String!, category: String!): GoogleSaveSearchResponse!\n  GoogleSaveSearchAll(category: String): GoogleSaveSearchAllResponse!\n}\n\n# scalar JSON\ntype AppleSaveFullDetailResponse {\n  appleApp: AppleApp\n  error: String\n}\n\n# scalar JSON\ntype AppleSavePopularResponse {\n  appleApps: [AppleApp]\n  error: String\n}\n\n# scalar JSON\ntype AppleSaveSearchResponse {\n  appleApps: [AppleApp]\n  error: String\n}\n\n# scalar JSON\ntype AppleSaveSearchAllResponse {\n  appleApps: [AppleApp]\n  error: String\n}\n\n# scalar JSON\ntype AppleSaveTopListResponse {\n  appleApps: [AppleApp]\n  error: String\n}\n\ntype AppleApp {\n  generatedId: Int\n  id: Int\n  appId: String\n  title: String\n  url: String\n  description: String\n  icon: String\n  country: String\n  language: String\n  category: String\n  languages: [String]\n  developer: String\n  score: Float\n  ratings: Int\n  contentRating: String\n  reviews: Int\n  currentVersionReviews: Int\n  screenshots: [String]\n  genres: [String]\n  primaryGenre: String\n  createdAt: String\n  updatedAt: String\n}\n\nenum AppleCategories {\n  BOOKS\n  BUSINESS\n  CATALOGS\n  EDUCATION\n  ENTERTAINMENT\n  FINANCE\n  FOOD_AND_DRINK\n  GAMES\n  GAMES_ACTION\n  GAMES_ADVENTURE\n  GAMES_ARCADE\n  GAMES_BOARD\n  GAMES_CARD\n  GAMES_CASINO\n  GAMES_DICE\n  GAMES_EDUCATIONAL\n  GAMES_FAMILY\n  GAMES_MUSIC\n  GAMES_PUZZLE\n  GAMES_RACING\n  GAMES_ROLE_PLAYING\n  GAMES_SIMULATION\n  GAMES_SPORTS\n  GAMES_STRATEGY\n  GAMES_TRIVIA\n  GAMES_WORD\n  HEALTH_AND_FITNESS\n  LIFESTYLE\n  MAGAZINES_AND_NEWSPAPERS\n  MAGAZINES_ARTS\n  MAGAZINES_AUTOMOTIVE\n  MAGAZINES_WEDDINGS\n  MAGAZINES_BUSINESS\n  MAGAZINES_CHILDREN\n  MAGAZINES_COMPUTER\n  MAGAZINES_FOOD\n  MAGAZINES_CRAFTS\n  MAGAZINES_ELECTRONICS\n  MAGAZINES_ENTERTAINMENT\n  MAGAZINES_FASHION\n  MAGAZINES_HEALTH\n  MAGAZINES_HISTORY\n  MAGAZINES_HOME\n  MAGAZINES_LITERARY\n  MAGAZINES_MEN\n  MAGAZINES_MOVIES_AND_MUSIC\n  MAGAZINES_POLITICS\n  MAGAZINES_OUTDOORS\n  MAGAZINES_FAMILY\n  MAGAZINES_PETS\n  MAGAZINES_PROFESSIONAL\n  MAGAZINES_REGIONAL\n  MAGAZINES_SCIENCE\n  MAGAZINES_SPORTS\n  MAGAZINES_TEENS\n  MAGAZINES_TRAVEL\n  MAGAZINES_WOMEN\n  MEDICAL\n  MUSIC\n  NAVIGATION\n  NEWS\n  PHOTO_AND_VIDEO\n  PRODUCTIVITY\n  REFERENCE\n  SHOPPING\n  SOCIAL_NETWORKING\n  SPORTS\n  TRAVEL\n  UTILITIES\n  WEATHER\n}\n\nenum AppleCollections {\n  TOP_MAC\n  TOP_FREE_MAC\n  TOP_GROSSING_MAC\n  TOP_PAID_MAC\n  NEW_IOS\n  NEW_FREE_IOS\n  NEW_PAID_IOS\n  TOP_FREE_IOS\n  TOP_FREE_IPAD\n  TOP_GROSSING_IOS\n  TOP_GROSSING_IPAD\n  TOP_PAID_IOS\n  TOP_PAID_IPAD\n}\n\ntype GoogleGetAppResponse {\n  googleApp: [GoogleApp]\n  error: String\n}\n\nscalar JSON\n\ntype GoogleSaveFullDetailResponse {\n  googleApp: GoogleApp\n  error: String\n}\n\ntype GoogleSaveSearchResponse {\n  googleApp: [GoogleApp]\n  error: String\n}\n\ntype GoogleSaveSearchAllResponse {\n  googleApp: [GoogleApp]\n  error: String\n}\n\ntype GoogleApp {\n  appId: String\n  title: String\n  url: String\n  description: String\n  summary: String\n  installs: String\n  icon: String\n  country: String\n  language: String\n  category: String\n  score: Float\n  scoreText: String\n  reviews: Int\n  ratings: Int\n  screenshots: [String]\n  genre: String\n  genreId: String\n  comments: [String]\n  createdAt: String\n  updatedAt: String\n}\n"];
+export const typeDefs = ["type AppleGetAppResponse {\n  appleApp: [AppleApp]\n  error: String\n}\n\ntype Query {\n  AppleGetApp(language: String!, country: String!, category: String!): AppleGetAppResponse!\n  AppleGetFullDetail(appId: String!, country: String!, language: String!, category: String!): AppleGetFullDetailResponse!\n  AppleSavePopular(language: String!, country: String!, category: String!): AppleSavePopularResponse!\n  AppleSaveSearch(searchWords: String!, language: String!, country: String!, category: String!): AppleSaveSearchResponse!\n  AppleSaveSearchAll(category: String): AppleSaveSearchAllResponse!\n  AppleSaveTopList(appleCollection: AppleCollections!, appleCategory: AppleCategories!, country: String!, category: String!): AppleSaveTopListResponse!\n  GoogleGetApp(language: String!, country: String!, category: String!, dataCount: Int!): GoogleGetAppResponse!\n  GoogleGetFullDetail(appId: String!, country: String!, language: String!, category: String!): GoogleGetFullDetailResponse!\n  GoogleSaveSearch(searchWords: String!, language: String!, country: String!, category: String!): GoogleSaveSearchResponse!\n  GoogleSaveSearchAll(category: String): GoogleSaveSearchAllResponse!\n}\n\n# scalar JSON\ntype AppleGetFullDetailResponse {\n  appleApp: AppleApp\n  error: String\n}\n\n# scalar JSON\ntype AppleSavePopularResponse {\n  appleApps: [AppleApp]\n  error: String\n}\n\n# scalar JSON\ntype AppleSaveSearchResponse {\n  appleApps: [AppleApp]\n  error: String\n}\n\n# scalar JSON\ntype AppleSaveSearchAllResponse {\n  appleApps: [AppleApp]\n  error: String\n}\n\n# scalar JSON\ntype AppleSaveTopListResponse {\n  appleApps: [AppleApp]\n  error: String\n}\n\ntype AppleApp {\n  generatedId: Int\n  id: Int\n  appId: String\n  title: String\n  url: String\n  description: String\n  icon: String\n  country: String\n  language: String\n  category: String\n  languages: [String]\n  developer: String\n  score: Float\n  ratings: Int\n  contentRating: String\n  reviews: Int\n  currentVersionReviews: Int\n  screenshots: [String]\n  genres: [String]\n  primaryGenre: String\n  createdAt: String\n  updatedAt: String\n}\n\nenum AppleCategories {\n  BOOKS\n  BUSINESS\n  CATALOGS\n  EDUCATION\n  ENTERTAINMENT\n  FINANCE\n  FOOD_AND_DRINK\n  GAMES\n  GAMES_ACTION\n  GAMES_ADVENTURE\n  GAMES_ARCADE\n  GAMES_BOARD\n  GAMES_CARD\n  GAMES_CASINO\n  GAMES_DICE\n  GAMES_EDUCATIONAL\n  GAMES_FAMILY\n  GAMES_MUSIC\n  GAMES_PUZZLE\n  GAMES_RACING\n  GAMES_ROLE_PLAYING\n  GAMES_SIMULATION\n  GAMES_SPORTS\n  GAMES_STRATEGY\n  GAMES_TRIVIA\n  GAMES_WORD\n  HEALTH_AND_FITNESS\n  LIFESTYLE\n  MAGAZINES_AND_NEWSPAPERS\n  MAGAZINES_ARTS\n  MAGAZINES_AUTOMOTIVE\n  MAGAZINES_WEDDINGS\n  MAGAZINES_BUSINESS\n  MAGAZINES_CHILDREN\n  MAGAZINES_COMPUTER\n  MAGAZINES_FOOD\n  MAGAZINES_CRAFTS\n  MAGAZINES_ELECTRONICS\n  MAGAZINES_ENTERTAINMENT\n  MAGAZINES_FASHION\n  MAGAZINES_HEALTH\n  MAGAZINES_HISTORY\n  MAGAZINES_HOME\n  MAGAZINES_LITERARY\n  MAGAZINES_MEN\n  MAGAZINES_MOVIES_AND_MUSIC\n  MAGAZINES_POLITICS\n  MAGAZINES_OUTDOORS\n  MAGAZINES_FAMILY\n  MAGAZINES_PETS\n  MAGAZINES_PROFESSIONAL\n  MAGAZINES_REGIONAL\n  MAGAZINES_SCIENCE\n  MAGAZINES_SPORTS\n  MAGAZINES_TEENS\n  MAGAZINES_TRAVEL\n  MAGAZINES_WOMEN\n  MEDICAL\n  MUSIC\n  NAVIGATION\n  NEWS\n  PHOTO_AND_VIDEO\n  PRODUCTIVITY\n  REFERENCE\n  SHOPPING\n  SOCIAL_NETWORKING\n  SPORTS\n  TRAVEL\n  UTILITIES\n  WEATHER\n}\n\nenum AppleCollections {\n  TOP_MAC\n  TOP_FREE_MAC\n  TOP_GROSSING_MAC\n  TOP_PAID_MAC\n  NEW_IOS\n  NEW_FREE_IOS\n  NEW_PAID_IOS\n  TOP_FREE_IOS\n  TOP_FREE_IPAD\n  TOP_GROSSING_IOS\n  TOP_GROSSING_IPAD\n  TOP_PAID_IOS\n  TOP_PAID_IPAD\n}\n\ntype GoogleGetAppResponse {\n  googleApp: [GoogleApp]\n  error: String\n}\n\nscalar JSON\n\ntype GoogleGetFullDetailResponse {\n  googleApp: GoogleApp\n  error: String\n}\n\ntype GoogleInspectResponse {\n  googleApp: GoogleApp\n  error: String\n}\n\ntype Mutation {\n  GoogleInspect(appId: String!, country: String!, language: String!, category: String!): GoogleInspectResponse!\n}\n\ntype GoogleSaveSearchResponse {\n  googleApp: [GoogleApp]\n  error: String\n}\n\ntype GoogleSaveSearchAllResponse {\n  googleApp: [GoogleApp]\n  error: String\n}\n\ntype GoogleApp {\n  appId: String\n  title: String\n  url: String\n  description: String\n  summary: String\n  summaryLanguage: String\n  installs: String\n  icon: String\n  country: String\n  language: String\n  category: String\n  score: Float\n  scoreText: String\n  reviews: Int\n  ratings: Int\n  screenshots: [String]\n  genre: String\n  genreId: String\n  comments: [String]\n  createdAt: String\n  updatedAt: String\n}\n"];
 /* tslint:disable */
 
 export interface Query {
   AppleGetApp: AppleGetAppResponse;
-  AppleSaveFullDetail: AppleSaveFullDetailResponse;
+  AppleGetFullDetail: AppleGetFullDetailResponse;
   AppleSavePopular: AppleSavePopularResponse;
   AppleSaveSearch: AppleSaveSearchResponse;
   AppleSaveSearchAll: AppleSaveSearchAllResponse;
   AppleSaveTopList: AppleSaveTopListResponse;
   GoogleGetApp: GoogleGetAppResponse;
-  GoogleSaveFullDetail: GoogleSaveFullDetailResponse;
+  GoogleGetFullDetail: GoogleGetFullDetailResponse;
   GoogleSaveSearch: GoogleSaveSearchResponse;
   GoogleSaveSearchAll: GoogleSaveSearchAllResponse;
 }
@@ -20,8 +20,11 @@ export interface AppleGetAppQueryArgs {
   category: string;
 }
 
-export interface AppleSaveFullDetailQueryArgs {
-  id: string;
+export interface AppleGetFullDetailQueryArgs {
+  appId: string;
+  country: string;
+  language: string;
+  category: string;
 }
 
 export interface AppleSavePopularQueryArgs {
@@ -52,10 +55,14 @@ export interface GoogleGetAppQueryArgs {
   language: string;
   country: string;
   category: string;
+  dataCount: number;
 }
 
-export interface GoogleSaveFullDetailQueryArgs {
+export interface GoogleGetFullDetailQueryArgs {
   appId: string;
+  country: string;
+  language: string;
+  category: string;
 }
 
 export interface GoogleSaveSearchQueryArgs {
@@ -99,7 +106,7 @@ export interface AppleApp {
   updatedAt: string | null;
 }
 
-export interface AppleSaveFullDetailResponse {
+export interface AppleGetFullDetailResponse {
   appleApp: AppleApp | null;
   error: string | null;
 }
@@ -139,6 +146,7 @@ export interface GoogleApp {
   url: string | null;
   description: string | null;
   summary: string | null;
+  summaryLanguage: string | null;
   installs: string | null;
   icon: string | null;
   country: string | null;
@@ -156,7 +164,7 @@ export interface GoogleApp {
   updatedAt: string | null;
 }
 
-export interface GoogleSaveFullDetailResponse {
+export interface GoogleGetFullDetailResponse {
   googleApp: GoogleApp | null;
   error: string | null;
 }
@@ -168,6 +176,22 @@ export interface GoogleSaveSearchResponse {
 
 export interface GoogleSaveSearchAllResponse {
   googleApp: Array<GoogleApp> | null;
+  error: string | null;
+}
+
+export interface Mutation {
+  GoogleInspect: GoogleInspectResponse;
+}
+
+export interface GoogleInspectMutationArgs {
+  appId: string;
+  country: string;
+  language: string;
+  category: string;
+}
+
+export interface GoogleInspectResponse {
+  googleApp: GoogleApp | null;
   error: string | null;
 }
 

@@ -26,6 +26,9 @@ class GoogleApp extends BaseEntity {
 	@Column({ type: "text" })
 	description: string
 
+	@Column({ type: "text", nullable: true })
+	summaryLanguage: string
+
 	@Column({ type: "text" })
 	summary: string
 

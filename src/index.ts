@@ -4,6 +4,8 @@ import app from "./app"
 import { createConnection } from "typeorm"
 import { Options } from "graphql-yoga"
 import connectionOptions from "./ormConfig"
+// import detector from "./utils/detector"
+// import bodyTranslator from "./utils/bodyTranslator"
 // import executeTranslator from "./utils/executeTranslator"
 
 const PORT: number | string = process.env.PORT || 4000
@@ -22,5 +24,7 @@ createConnection(connectionOptions)
 	.then(() => {
 		app.start(appOptions, handleAppStart)
 		// executeTranslator()
+		// detector("Et maintenant que l’été approche")
+		// bodyTranslator("Et maintenant que l’été approche", "ko")
 	})
 	.catch((error) => console.log(error))

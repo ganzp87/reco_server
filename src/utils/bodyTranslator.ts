@@ -1,5 +1,3 @@
-import { searchWords } from "../raw/GlobalConstants"
-import { language } from "../raw/GlobalConstants"
 import util from "util"
 import request from "request"
 import uuidv4 from "uuid/v4"
@@ -20,16 +18,14 @@ if (!process.env.endpoint) {
 const subscriptionKey = process.env.subscriptionKey
 const endpoint = process.env.endpoint
 
-const translator = async (category) => {
-	const searchWordList: string[] = searchWords[category]
-	const languageList: string[] = language
+const bodyTranslator = async (body, language) => {
 	const options = {
 		method: "POST",
 		baseUrl: endpoint,
 		url: "translate",
 		qs: {
 			"api-version": "3.0",
-			to: languageList
+			to: language
 		},
 		headers: {
 			"Ocp-Apim-Subscription-Key": subscriptionKey,
@@ -38,7 +34,7 @@ const translator = async (category) => {
 		},
 		body: [
 			{
-				text: `${searchWordList}`
+				text: `${body}`
 			}
 		],
 		json: true
@@ -54,9 +50,11 @@ const translator = async (category) => {
 			translateList[lang] = translateList[lang]
 				.replace(/\s/g, "")
 				.split(",")
+			console.log(translateList[lang])
 		}
 	}
+	// console.log(response)
 	return translateList
 }
 
-export default translator
+export default bodyTranslator

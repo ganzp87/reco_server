@@ -13,7 +13,7 @@ class AppleApp extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	generatedId: number
 
-	@Column({ type: "text", unique: true })
+	@Column({ type: "text" })
 	id: number
 
 	@Column({ type: "text" })

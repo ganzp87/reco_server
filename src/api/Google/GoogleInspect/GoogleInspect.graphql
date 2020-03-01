@@ -1,0 +1,13 @@
+type GoogleInspectResponse {
+	googleApp: GoogleApp
+	error: String
+}
+
+type Mutation {
+	GoogleInspect(
+		appId: String!
+		country: String!
+		language: String!
+		category: String!
+	): GoogleInspectResponse!
+}

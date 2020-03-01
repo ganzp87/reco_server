@@ -59,7 +59,10 @@ const updateAppInfo = async (
 				return false
 			} else {
 				const appleApp = await AppleApp.findOne({
-					id
+					id,
+					country: app.country,
+					language: app.language,
+					category: app.category
 				})
 				if (appleApp) {
 					await AppleApp.update(

@@ -1,9 +1,0 @@
-# scalar JSON
-type AppleSaveFullDetailResponse {
-	appleApp: AppleApp
-	error: String
-}
-
-type Query {
-	AppleSaveFullDetail(id: String!): AppleSaveFullDetailResponse!
-}

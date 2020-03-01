@@ -1,23 +1,25 @@
-import appStore from "app-store-scraper"
 import {
-	AppleSaveFullDetailResponse,
-	AppleSaveFullDetailQueryArgs
+	AppleGetFullDetailResponse,
+	AppleGetFullDetailQueryArgs
 } from "../../../types/graphql"
 import { Resolvers } from "../../../types/resolvers"
+import AppleApp from "../../../entities/AppleApp"
 
 const resolvers: Resolvers = {
 	Query: {
-		AppleSaveFullDetail: async (
+		AppleGetFullDetail: async (
 			_,
-			arg: AppleSaveFullDetailQueryArgs
-		): Promise<AppleSaveFullDetailResponse> => {
-			const { id } = arg
+			arg: AppleGetFullDetailQueryArgs
+		): Promise<AppleGetFullDetailResponse> => {
+			const { appId, country, language, category } = arg
 			try {
-				const appStoreResult = await appStore.app({
-					id,
-					throttle: 10,
-					country: "us",
-					ratings: true
+				const appStoreResult:
+					| AppleApp
+					| undefined = await AppleApp.findOne({
+					appId,
+					country,
+					language,
+					category
 				})
 				if (appStoreResult) {
 					return {

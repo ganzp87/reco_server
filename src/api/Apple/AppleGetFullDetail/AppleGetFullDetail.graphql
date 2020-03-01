@@ -1,0 +1,14 @@
+# scalar JSON
+type AppleGetFullDetailResponse {
+	appleApp: AppleApp
+	error: String
+}
+
+type Query {
+	AppleGetFullDetail(
+		appId: String!
+		country: String!
+		language: String!
+		category: String!
+	): AppleGetFullDetailResponse!
+}

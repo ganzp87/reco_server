@@ -1,4 +1,4 @@
-import translator from "./translator"
+import categoryTranslator from "./categoryTranslator"
 import { searchWords } from "../raw/GlobalConstants"
 
 const categories = () => {
@@ -12,7 +12,7 @@ const categories = () => {
 const executeTranslator = async () => {
 	const totalList = {}
 	for (const subCategory of categories()) {
-		const transTextResult = await translator(subCategory)
+		const transTextResult = await categoryTranslator(subCategory)
 		totalList[subCategory] = transTextResult
 	}
 	console.log(totalList)
