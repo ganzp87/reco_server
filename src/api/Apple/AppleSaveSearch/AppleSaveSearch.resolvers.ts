@@ -4,8 +4,8 @@ import {
 } from "../../../types/graphql"
 import appStore from "app-store-scraper"
 import { Resolvers } from "../../../types/resolvers"
-import genres from "../../../raw/AppleGenres.json"
 import AppleApp from "../../../entities/AppleApp"
+import { appleGenre } from "../../../raw/GlobalConstants"
 
 function mapAsync(array, callbackfn) {
 	return Promise.all(array.map(callbackfn))
@@ -61,7 +61,7 @@ const resolvers: Resolvers = {
 							if (reviews < 500 && ratings < 500) {
 								return false
 							} else {
-								const summaryResult = genres.summary[
+								const summaryResult = appleGenre.summary[
 									`${category}`
 								].some((substr) =>
 									description?.includes(substr)
@@ -69,7 +69,7 @@ const resolvers: Resolvers = {
 								if (summaryResult) {
 									return true
 								}
-								const genresResult = genres.primaryGenre[
+								const appleGenreResult = appleGenre.primaryGenre[
 									`${category}`
 								].map((item) => {
 									if (primaryGenre.includes(item)) {
@@ -78,7 +78,7 @@ const resolvers: Resolvers = {
 										return false
 									}
 								})
-								if (!genresResult.includes(true)) {
+								if (!appleGenreResult.includes(true)) {
 									return false
 								} else {
 									const appleApp = await AppleApp.findOne({

@@ -6,9 +6,9 @@ import appStore from "app-store-scraper"
 import { Resolvers } from "../../../types/resolvers"
 import {
 	appleCountries,
-	translatedCategories
+	translatedCategories,
+	appleGenre
 } from "../../../raw/GlobalConstants"
-import genres from "../../../raw/AppleGenres.json"
 import AppleApp from "../../../entities/AppleApp"
 // import executeTranslator from "../../../utils/executeTranslator"
 
@@ -41,13 +41,13 @@ const updateAppInfo = async (
 		if (reviews < 500) {
 			return false
 		} else {
-			const summaryResult = genres.summary[`${category}`].some((substr) =>
-				description?.includes(substr)
-			)
+			const summaryResult = appleGenre.summary[
+				`${category}`
+			].some((substr) => description?.includes(substr))
 			if (summaryResult) {
 				return false
 			}
-			const genresResult = genres.primaryGenre[`${category}`].map(
+			const genresResult = appleGenre.primaryGenre[`${category}`].map(
 				(item) => {
 					if (primaryGenre.includes(item)) {
 						return true

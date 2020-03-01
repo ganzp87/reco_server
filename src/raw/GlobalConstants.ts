@@ -60,6 +60,51 @@ export const googleCountries = {
 	ja: ["jp"]
 }
 
+export const googleGenre = {
+	genreId: {
+		food: ["FOOD_AND_DRINK"],
+		hotel: ["TRAVEL_AND_LOCAL", "BUSINESS"],
+		map: ["MAPS_AND_NAVIGATION", "TRAVEL_AND_LOCAL"],
+		translate: ["TRAVEL_AND_LOCAL", "TOOLS"],
+		wifi: ["TOOLS", "LIFESTYLE", "TRAVEL_AND_LOCAL"],
+		travel: [
+			"TRAVEL_AND_LOCAL",
+			"LIFESTYLE",
+			"ENTERTAINMENT",
+			"EVENTS",
+			"AUTO_AND_VEHICLES",
+			"SPORTS"
+		]
+	},
+	summary: {
+		food: ["game", "Game"],
+		hotel: ["game", "Game"],
+		map: ["game", "Game"],
+		translate: ["game", "Game"],
+		wifi: ["game", "Game"],
+		travel: ["game", "Game"]
+	}
+}
+
+export const appleGenre = {
+	primaryGenre: {
+		food: ["Food & Drink", "Travel", "Lifestyle"],
+		hotel: ["Travel", "Business"],
+		map: ["Navigation", "Travel"],
+		translate: ["Productivity", "Utilities"],
+		wifi: ["Utilities", "Lifestyle", "Travel"],
+		travel: ["Travel", "Lifestyle", "Entertainment"]
+	},
+	summary: {
+		food: ["game", "Game"],
+		hotel: ["game", "Game"],
+		map: ["game", "Game"],
+		translate: ["game", "Game"],
+		wifi: ["game", "Game"],
+		travel: ["game", "Game"]
+	}
+}
+
 export const translatedCategories = {
 	food: {
 		en: ["restaurant", "food", "gourmet", "cuisine"],

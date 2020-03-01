@@ -4,11 +4,11 @@ import {
 } from "../../../types/graphql"
 import gplay from "google-play-scraper"
 import { Resolvers } from "../../../types/resolvers"
-import genres from "../../../raw/googleGenres.json"
 import GoogleApp from "../../../entities/GoogleApp"
 import {
 	translatedCategories,
-	googleCountries
+	googleCountries,
+	googleGenre
 } from "../../../raw/GlobalConstants"
 
 function mapAsync(array, callbackfn) {
@@ -40,20 +40,22 @@ const updateAppInfo = async (
 		if (reviews < 500 && ratings < 500) {
 			return false
 		} else {
-			const summaryResult = genres.summary[`${category}`].some((substr) =>
-				description?.includes(substr)
-			)
+			const summaryResult = googleGenre.summary[
+				`${category}`
+			].some((substr) => description?.includes(substr))
 			if (summaryResult) {
 				return false
 			}
-			const genresResult = genres.genreId[`${category}`].map((item) => {
-				if (primaryGenre.includes(item)) {
-					return true
-				} else {
-					return false
+			const googleGenreResult = googleGenre.genreId[`${category}`].map(
+				(item) => {
+					if (primaryGenre.includes(item)) {
+						return true
+					} else {
+						return false
+					}
 				}
-			})
-			if (!genresResult.includes(true)) {
+			)
+			if (!googleGenreResult.includes(true)) {
 				return false
 			} else {
 				const googleApp:

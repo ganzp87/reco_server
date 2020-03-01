@@ -4,8 +4,8 @@ import {
 } from "../../../types/graphql"
 import gplay from "google-play-scraper"
 import { Resolvers } from "../../../types/resolvers"
-import genres from "../../../raw/googleGenres.json"
 import GoogleApp from "../../../entities/GoogleApp"
+import { googleGenre } from "../../../raw/GlobalConstants"
 
 function mapAsync(array, callbackfn) {
 	return Promise.all(array.map(callbackfn))
@@ -35,7 +35,7 @@ const resolvers: Resolvers = {
 				})
 				const appIdContainer: any[] = []
 				const gPlayRevisedResult: [GoogleApp] | any[] = []
-				await filterAsync(gPlayResult, async (app) => {
+				await filterAsync(gPlayResult, async (app: GoogleApp) => {
 					const appId = app.appId
 					if (appIdContainer.includes(appId)) {
 						console.log(appId)
@@ -58,13 +58,13 @@ const resolvers: Resolvers = {
 						) {
 							return false
 						} else {
-							const summaryResult = genres.summary[
+							const summaryResult = googleGenre.summary[
 								`${category}`
 							].some((substr) => summary?.includes(substr))
 							if (summaryResult) {
 								return true
 							}
-							const genresResult = genres.genreId[
+							const googleGenreResult = googleGenre.genreId[
 								`${category}`
 							].map((item) => {
 								if (genreId.includes(item)) {
@@ -73,7 +73,7 @@ const resolvers: Resolvers = {
 									return false
 								}
 							})
-							if (!genresResult.includes(true)) {
+							if (!googleGenreResult.includes(true)) {
 								return false
 							} else {
 								const googleApp:
