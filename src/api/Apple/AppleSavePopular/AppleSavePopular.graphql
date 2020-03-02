@@ -6,7 +6,6 @@ type AppleSavePopularResponse {
 
 type Query {
 	AppleSavePopular(
-		language: String!
 		country: String!
 		category: String!
 	): AppleSavePopularResponse!

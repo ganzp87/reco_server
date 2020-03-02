@@ -7,7 +7,6 @@ type AppleSaveSearchResponse {
 type Query {
 	AppleSaveSearch(
 		searchWords: String!
-		language: String!
 		country: String!
 		category: String!
 	): AppleSaveSearchResponse!

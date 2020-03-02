@@ -1,5 +1,0 @@
-type LangContainer {
-	language: String
-	country: String
-	category: String
-}

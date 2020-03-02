@@ -17,7 +17,6 @@ const resolvers: Resolvers = {
 		): Promise<AppleGetAppResponse> => {
 			const {
 				category,
-				language,
 				searchCountry,
 				myLanguageCountry,
 				dataCount
@@ -25,7 +24,6 @@ const resolvers: Resolvers = {
 			const revisedAppleApp: AppleApp[] = []
 			let currentDataCount = 0
 			const findingLangCountry: LangContainer = {
-				language,
 				country: searchCountry,
 				category
 			}

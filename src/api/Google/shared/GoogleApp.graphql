@@ -4,12 +4,10 @@ type GoogleApp {
 	url: String
 	description: String
 	summary: String
-	summaryLanguage: String
 	installs: String
 	icon: String
 	langCountry: String
 	country: String
-	language: String
 	category: String
 	score: Float
 	scoreText: String
