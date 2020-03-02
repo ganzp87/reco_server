@@ -13,10 +13,10 @@ class AppleApp extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	generatedId: number
 
-	@Column({ type: "text" })
+	@Column({ type: "text", unique: true })
 	id: number
 
-	@Column({ type: "text" })
+	@Column({ type: "text", unique: true })
 	appId: string
 
 	@Column({ type: "text" })
@@ -32,6 +32,9 @@ class AppleApp extends BaseEntity {
 	@IsUrl()
 	@Column({ type: "text" })
 	icon: string
+
+	@Column({ type: "text", nullable: true })
+	langCountry: string
 
 	@Column({ type: "text", nullable: true })
 	country: string

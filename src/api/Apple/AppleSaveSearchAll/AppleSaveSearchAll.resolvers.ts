@@ -1,6 +1,8 @@
 import {
 	AppleSaveSearchAllResponse,
-	AppleSaveSearchQueryArgs
+	AppleSaveSearchQueryArgs,
+	// JSON,
+	LangContainer
 } from "../../../types/graphql"
 import appStore from "app-store-scraper"
 import { Resolvers } from "../../../types/resolvers"
@@ -18,6 +20,14 @@ function mapAsync(array, callbackfn) {
 async function filterAsync(array, callbackfn) {
 	const filterMap = await mapAsync(array, callbackfn)
 	return array.filter((value, index) => filterMap[index])
+}
+
+function uniqBy(a, key) {
+	const seen = {}
+	return a.filter((item) => {
+		const k = key(item)
+		return seen.hasOwnProperty(k) ? false : (seen[k] = true)
+	})
 }
 
 const updateAppInfo = async (
@@ -58,25 +68,69 @@ const updateAppInfo = async (
 			if (!genresResult.includes(true)) {
 				return false
 			} else {
-				const appleApp = await AppleApp.findOne({
-					id,
-					country: app.country,
-					language: app.language,
-					category: app.category
+				let langcountryListString: string
+				const langCountryContainer = new Array()
+				const thisLangCountry: LangContainer = {
+					language,
+					country,
+					category
+				}
+				langCountryContainer.push(thisLangCountry)
+
+				const appleApp: AppleApp | undefined = await AppleApp.findOne({
+					id
 				})
 				if (appleApp) {
+					// console.log("uniqBy-1")
+					langcountryListString = appleApp.langCountry
+					// console.log(langcountryListString)
+					const parsedContainer = JSON.parse(langcountryListString)
+					const langcountryListUniqq = uniqBy(
+						parsedContainer,
+						JSON.stringify
+					)
+					// console.log(langcountryListUniqq)
+					let i = 0
+					for (const item of langcountryListUniqq) {
+						let parsedItem
+						try {
+							parsedItem = JSON.parse(item)
+						} catch (error) {
+							parsedItem = item
+						}
+						langcountryListUniqq[i] = parsedItem
+						i++
+					}
+					// console.log(langcountryListUniqq)
+
+					for (const item of langcountryListUniqq) {
+						let parsedItem
+						try {
+							parsedItem = JSON.parse(item)
+						} catch (error) {
+							parsedItem = item
+						}
+						if (!langCountryContainer.includes(parsedItem)) {
+							// console.log(appleApp.title, parsedItem)
+							langCountryContainer.push(item)
+						}
+					}
+					const langcountryListUniq = uniqBy(
+						langCountryContainer,
+						JSON.stringify
+					)
+					// console.log("uniqBy-2")
+					// console.log(langcountryListUniq)
 					await AppleApp.update(
 						{
-							id,
-							country: appleApp.country,
-							language: appleApp.language,
-							category: appleApp.category
+							id
 						},
 						{
 							title: app.title,
 							url: app.url,
 							description: app.description,
 							icon: app.icon,
+							langCountry: JSON.stringify(langcountryListUniq),
 							country: app.country,
 							language: app.language,
 							category: app.category,
@@ -92,7 +146,12 @@ const updateAppInfo = async (
 						}
 					)
 				} else {
+					const langcountryListUniq = uniqBy(
+						langCountryContainer,
+						JSON.stringify
+					)
 					await AppleApp.create({
+						langCountry: JSON.stringify(langcountryListUniq),
 						...app
 					}).save()
 				}
@@ -132,12 +191,6 @@ const searchFn = async (category, language, country, searchWords) => {
 			} else {
 				appIdContainer.push(id)
 				try {
-					// const getFullDetailApp: AppleApp = await appStore.app({
-					// 	id,
-					// 	country,
-					// 	lang: language,
-					// 	ratings: true
-					// })
 					return await updateAppInfo(
 						appStoreRevisedResult,
 						app,
@@ -146,11 +199,11 @@ const searchFn = async (category, language, country, searchWords) => {
 						category
 					)
 				} catch (error) {
-					console.log(`❌❌❌ appStore Revised Error`)
+					console.log(`❌❌❌ appStore Revised Error : ${error}`)
 					failureSearchThings.push(
 						`Failure search things ==>> category : ${category}, searchWords : ${searchWords}, country : ${country}, language : ${language} `
 					)
-					await new Promise((r) => setTimeout(r, 1000))
+					// await new Promise((r) => setTimeout(r, 1000))
 					return false
 				}
 			}
@@ -165,6 +218,10 @@ const searchFn = async (category, language, country, searchWords) => {
 	}
 }
 
+let searchCount: number = 0
+let beforeSearchCount: number = 0
+let searchContainer: string = ""
+
 const resolvers: Resolvers = {
 	Query: {
 		AppleSaveSearchAll: async (
@@ -172,8 +229,6 @@ const resolvers: Resolvers = {
 			arg: AppleSaveSearchQueryArgs
 		): Promise<AppleSaveSearchAllResponse> => {
 			const { category } = arg
-			const searchContainer: string[] = []
-			let searchCount: number = 0
 			try {
 				let appStoreRevisedResult: AppleApp[] = []
 				const translateList = translatedCategories
@@ -199,38 +254,45 @@ const resolvers: Resolvers = {
 												for (const searchWords of searchWordsGroup) {
 													for (const country of subCountry) {
 														const language = lang
+														const searchThing = `/${category}/${language}/${country}/${searchWords}`
 														if (
 															searchContainer.includes(
-																`${category}${language}${country}${searchWords}`
+																searchThing
 															)
 														) {
 															console.log(
 																`Already searched : ${category}/${language}/${country}/${searchWords}`
 															)
 														} else {
-															searchContainer.push(
-																`${category}${language}${country}${searchWords}`
-															)
+															searchContainer =
+																searchContainer +
+																searchThing
+															beforeSearchCount = searchCount
 															searchCount++
-															console.log(
-																"\n\n\n",
-																"Searching... ",
-																category,
-																language,
-																country,
-																searchWords,
-																searchCount,
-																"\n\n"
-															)
-															appStoreRevisedResult = await searchFn(
-																category,
-																language,
-																country,
-																searchWords
-															)
-															console.log(
-																"Next country"
-															)
+															if (
+																searchCount >
+																beforeSearchCount
+															) {
+																console.log(
+																	"\n\n\n",
+																	"Searching... ",
+																	category,
+																	language,
+																	country,
+																	searchWords,
+																	searchCount,
+																	"\n\n"
+																)
+																appStoreRevisedResult = await searchFn(
+																	category,
+																	language,
+																	country,
+																	searchWords
+																)
+																console.log(
+																	"Next country"
+																)
+															}
 														}
 													}
 													console.log(
@@ -262,35 +324,45 @@ const resolvers: Resolvers = {
 											for (const searchWords of searchWordsGroup) {
 												for (const country of subCountry) {
 													const language = lang
+													const searchThing = `/${categoryKey}/${language}/${country}/${searchWords}`
 													if (
 														searchContainer.includes(
-															`${categoryKey} / ${language} / ${country} / ${searchWords}`
+															searchThing
 														)
 													) {
 														console.log(
-															`Already searched : ${categoryKey} / ${language} / ${country} / ${searchWords}`
+															`Already searched : ${categoryKey}/${language}/${country}/${searchWords}`
 														)
 													} else {
-														searchContainer.push(
-															`${categoryKey} / ${language} / ${country} / ${searchWords}`
-														)
+														searchContainer =
+															searchContainer +
+															searchThing
+														beforeSearchCount = searchCount
 														searchCount++
-														console.log(
-															"\n\n\n",
-															"Searching... ",
-															categoryKey,
-															language,
-															country,
-															searchWords,
-															searchCount,
-															"\n\n"
-														)
-														appStoreRevisedResult = await searchFn(
-															categoryKey,
-															language,
-															country,
-															searchWords
-														)
+														if (
+															searchCount >
+															beforeSearchCount
+														) {
+															console.log(
+																"\n\n\n",
+																"Searching... ",
+																categoryKey,
+																language,
+																country,
+																searchWords,
+																searchCount,
+																"\n\n"
+															)
+															appStoreRevisedResult = await searchFn(
+																categoryKey,
+																language,
+																country,
+																searchWords
+															)
+															console.log(
+																"Next country"
+															)
+														}
 													}
 													console.log("Next country")
 												}

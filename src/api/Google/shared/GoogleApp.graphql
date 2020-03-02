@@ -7,6 +7,7 @@ type GoogleApp {
 	summaryLanguage: String
 	installs: String
 	icon: String
+	langCountry: String
 	country: String
 	language: String
 	category: String

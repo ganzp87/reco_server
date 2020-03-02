@@ -6,9 +6,9 @@ type AppleGetAppResponse {
 type Query {
 	AppleGetApp(
 		language: String!
-		country: String!
-		category: String!
 		searchCountry: String!
+		category: String!
+		myLanguageCountry: String!
 		dataCount: Int!
 	): AppleGetAppResponse!
 }

@@ -1,6 +1,7 @@
 import {
 	GoogleSaveSearchAllQueryArgs,
-	GoogleSaveSearchAllResponse
+	GoogleSaveSearchAllResponse,
+	LangContainer
 } from "../../../types/graphql"
 import gplay from "google-play-scraper"
 import { Resolvers } from "../../../types/resolvers"
@@ -18,6 +19,14 @@ function mapAsync(array, callbackfn) {
 async function filterAsync(array, callbackfn) {
 	const filterMap = await mapAsync(array, callbackfn)
 	return array.filter((value, index) => filterMap[index])
+}
+
+function uniqBy(a, key) {
+	const seen = {}
+	return a.filter((item) => {
+		const k = key(item)
+		return seen.hasOwnProperty(k) ? false : (seen[k] = true)
+	})
 }
 
 const updateAppInfo = async (
@@ -58,21 +67,64 @@ const updateAppInfo = async (
 			if (!googleGenreResult.includes(true)) {
 				return false
 			} else {
+				let langcountryListString: string
+				const langCountryContainer = new Array()
+				const thisLangCountry: LangContainer = {
+					language,
+					country,
+					category
+				}
+				langCountryContainer.push(thisLangCountry)
+
 				const googleApp:
 					| GoogleApp
 					| undefined = await GoogleApp.findOne({
-					appId,
-					country: app.country,
-					language: app.language,
-					category: app.category
+					appId
 				})
 				if (googleApp) {
+					// console.log("uniqBy-1")
+					langcountryListString = googleApp.langCountry
+					// console.log(langcountryListString)
+					const parsedContainer = JSON.parse(langcountryListString)
+					const langcountryListUniqq = uniqBy(
+						parsedContainer,
+						JSON.stringify
+					)
+					// console.log(langcountryListUniqq)
+					let i = 0
+					for (const item of langcountryListUniqq) {
+						let parsedItem
+						try {
+							parsedItem = JSON.parse(item)
+						} catch (error) {
+							parsedItem = item
+						}
+						langcountryListUniqq[i] = parsedItem
+						i++
+					}
+					// console.log(langcountryListUniqq)
+
+					for (const item of langcountryListUniqq) {
+						let parsedItem
+						try {
+							parsedItem = JSON.parse(item)
+						} catch (error) {
+							parsedItem = item
+						}
+						if (!langCountryContainer.includes(parsedItem)) {
+							// console.log(appleApp.title, parsedItem)
+							langCountryContainer.push(item)
+						}
+					}
+					const langcountryListUniq = uniqBy(
+						langCountryContainer,
+						JSON.stringify
+					)
+					// console.log("uniqBy-2")
+					// console.log(langcountryListUniq)
 					await GoogleApp.update(
 						{
-							appId,
-							country: googleApp.country,
-							language: googleApp.language,
-							category: googleApp.category
+							appId
 						},
 						{
 							title: app.title,
@@ -81,6 +133,7 @@ const updateAppInfo = async (
 							summary: app.summary,
 							installs: app.installs,
 							icon: app.icon,
+							langCountry: JSON.stringify(langcountryListUniq),
 							score: app.score,
 							scoreText: app.scoreText,
 							reviews: app.reviews,
@@ -92,7 +145,12 @@ const updateAppInfo = async (
 						}
 					)
 				} else {
+					const langcountryListUniq = uniqBy(
+						langCountryContainer,
+						JSON.stringify
+					)
 					await GoogleApp.create({
+						langCountry: JSON.stringify(langcountryListUniq),
 						...app
 					}).save()
 				}
@@ -115,7 +173,7 @@ const searchFn = async (category, language, country, searchWords) => {
 	try {
 		appStoreResult = await gplay.search({
 			term: searchWords,
-			num: 250,
+			num: 150,
 			lang: language,
 			country,
 			throttle: 10,
@@ -128,6 +186,7 @@ const searchFn = async (category, language, country, searchWords) => {
 		await new Promise((r) => setTimeout(r, 2000))
 		await filterAsync(appStoreResult, async (app) => {
 			const appId = app.appId
+
 			if (appIdContainer.includes(appId)) {
 				console.log(appId)
 				return false
@@ -142,11 +201,11 @@ const searchFn = async (category, language, country, searchWords) => {
 						category
 					)
 				} catch (error) {
-					console.log(`❌❌❌ appStore Revised Error`)
+					console.log(`❌❌❌ appStore Revised Error : ${error}`)
 					failureSearchThings.push(
 						`Failure search things ==>> category : ${category}, searchWords : ${searchWords}, country : ${country}, language : ${language} `
 					)
-					await new Promise((r) => setTimeout(r, 1000))
+					// await new Promise((r) => setTimeout(r, 1000))
 					return false
 				}
 			}
@@ -156,10 +215,13 @@ const searchFn = async (category, language, country, searchWords) => {
 		console.log(
 			"\n\n\n  ❌❌❌ appStore Search Error : There are no apps\n\n"
 		)
-		await new Promise((r) => setTimeout(r, 1000))
+		// await new Promise((r) => setTimeout(r, 1000))
 		return gPlayRevisedResult
 	}
 }
+let searchCount: number = 0
+let beforeSearchCount: number = 0
+let searchContainer: string = ""
 
 const resolvers: Resolvers = {
 	Query: {
@@ -169,8 +231,7 @@ const resolvers: Resolvers = {
 			__
 		): Promise<GoogleSaveSearchAllResponse> => {
 			const { category } = args
-			const searchContainer: string[] = []
-			let searchCount: number = 0
+
 			try {
 				let gPlayRevisedResult: GoogleApp[] = []
 				const translateList = translatedCategories
@@ -196,38 +257,45 @@ const resolvers: Resolvers = {
 												for (const searchWords of searchWordsGroup) {
 													for (const country of subCountry) {
 														const language = lang
+														const searchThing = `/${category}/${language}/${country}/${searchWords}`
 														if (
 															searchContainer.includes(
-																`${category}${language}${country}${searchWords}`
+																searchThing
 															)
 														) {
 															console.log(
 																`Already searched : ${category}/${language}/${country}/${searchWords}`
 															)
 														} else {
-															searchContainer.push(
-																`${category}${language}${country}${searchWords}`
-															)
+															searchContainer =
+																searchContainer +
+																searchThing
+															beforeSearchCount = searchCount
 															searchCount++
-															console.log(
-																"\n\n\n",
-																"Searching... ",
-																category,
-																language,
-																country,
-																searchWords,
-																searchCount,
-																"\n\n"
-															)
-															gPlayRevisedResult = await searchFn(
-																category,
-																language,
-																country,
-																searchWords
-															)
-															console.log(
-																"Next country"
-															)
+															if (
+																searchCount >
+																beforeSearchCount
+															) {
+																console.log(
+																	"\n\n\n",
+																	"Searching... ",
+																	category,
+																	language,
+																	country,
+																	searchWords,
+																	searchCount,
+																	"\n\n"
+																)
+																gPlayRevisedResult = await searchFn(
+																	category,
+																	language,
+																	country,
+																	searchWords
+																)
+																console.log(
+																	"Next country"
+																)
+															}
 														}
 													}
 													console.log(
@@ -259,40 +327,49 @@ const resolvers: Resolvers = {
 											for (const searchWords of searchWordsGroup) {
 												for (const country of subCountry) {
 													const language = lang
+													const searchThing = `/${categoryKey}/${language}/${country}/${searchWords}`
 													if (
 														searchContainer.includes(
-															`${categoryKey} / ${language} / ${country} / ${searchWords}`
+															searchThing
 														)
 													) {
 														console.log(
-															`Already searched : ${categoryKey} / ${language} / ${country} / ${searchWords}`
+															`Already searched : ${categoryKey}/${language}/${country}/${searchWords}`
 														)
 													} else {
-														searchContainer.push(
-															`${categoryKey} / ${language} / ${country} / ${searchWords}`
-														)
+														searchContainer =
+															searchContainer +
+															searchThing
 														// console.log(
 														// 	searchContainer
 														// )
+														beforeSearchCount = searchCount
 														searchCount++
-														console.log(
-															"\n\n\n",
-															"Searching... ",
-															categoryKey,
-															language,
-															country,
-															searchWords,
-															searchCount,
-															"\n\n"
-														)
-														gPlayRevisedResult = await searchFn(
-															categoryKey,
-															language,
-															country,
-															searchWords
-														)
+														if (
+															searchCount >
+															beforeSearchCount
+														) {
+															console.log(
+																"\n\n\n",
+																"Searching... ",
+																categoryKey,
+																language,
+																country,
+																searchWords,
+																searchCount,
+																"\n\n"
+															)
+															gPlayRevisedResult = await searchFn(
+																categoryKey,
+																language,
+																country,
+																searchWords
+															)
+															console.log(
+																"Next country"
+															)
+														}
 													}
-													console.log("Next country")
 												}
 												console.log("Next searchWord")
 											}
