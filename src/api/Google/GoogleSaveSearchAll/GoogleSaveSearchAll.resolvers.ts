@@ -97,7 +97,6 @@ const updateAppInfo = async (
 						langcountryListUniqq[i] = parsedItem
 						i++
 					}
-					// console.log(langcountryListUniqq)
 
 					for (const item of langcountryListUniqq) {
 						let parsedItem
