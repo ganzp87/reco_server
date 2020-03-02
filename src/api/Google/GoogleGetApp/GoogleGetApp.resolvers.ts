@@ -7,7 +7,6 @@ import {
 import { Resolvers } from "../../../types/resolvers"
 import GoogleApp from "../../../entities/GoogleApp"
 import { getRepository } from "typeorm"
-// import detector from "../../../utils/detector"
 
 const resolvers: Resolvers = {
 	Query: {
