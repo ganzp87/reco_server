@@ -52,6 +52,7 @@
 		"testdev": "cd dist && nodemon --exec node index.js -e js,graphql",
 		"pretypes": "gql-merge --out-file ./src/schema.graphql ./src/api/**/*.graphql",
 		"types": "graphql-to-typescript ./src/schema.graphql ./src/types/graphql.d.ts",
+		"prebuild": "rm -r dist",
 		"build": "tsc -t ES2018",
 		"postbuild": "yarn copy src/api/**/*.graphql dist/api",
 		"start": "cd dist && node ."
