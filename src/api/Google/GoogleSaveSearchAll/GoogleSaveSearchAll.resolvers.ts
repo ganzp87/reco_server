@@ -114,7 +114,6 @@ const updateAppInfo = async (
 						JSON.stringify
 					)
 					// console.log("uniqBy-2")
-					// console.log(langcountryListUniq)
 					await GoogleApp.update(
 						{
 							appId
