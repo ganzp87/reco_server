@@ -12,13 +12,12 @@ const resolvers: Resolvers = {
 			args: GoogleInspectMutationArgs
 		): Promise<GoogleInspectResponse> => {
 			try {
-				const { appId, country, language, category } = args
+				const { appId, country, category } = args
 				const gPlayResult:
 					| GoogleApp
 					| undefined = await GoogleApp.findOne({
 					appId,
 					country,
-					language,
 					category
 				})
 				if (gPlayResult) {

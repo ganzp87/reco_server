@@ -4,13 +4,13 @@ type AppleGetAppResponse {
 }
 
 type Query {
-  AppleGetApp(language: String!, searchCountry: String!, category: String!, myLanguageCountry: String!, dataCount: Int!): AppleGetAppResponse!
+  AppleGetApp(searchCountry: String!, category: String!, myLanguageCountry: String!, dataCount: Int!): AppleGetAppResponse!
   AppleGetFullDetail(appId: String!, country: String!): AppleGetFullDetailResponse!
   AppleSavePopular(language: String!, country: String!, category: String!): AppleSavePopularResponse!
   AppleSaveSearch(searchWords: String!, language: String!, country: String!, category: String!): AppleSaveSearchResponse!
   AppleSaveSearchAll(category: String): AppleSaveSearchAllResponse!
   AppleSaveTopList(appleCollection: AppleCollections!, appleCategory: AppleCategories!, country: String!, category: String!): AppleSaveTopListResponse!
-  GoogleGetApp(language: String!, searchCountry: String!, category: String!, myLanguage: String!, dataCount: Int!): GoogleGetAppResponse!
+  GoogleGetApp(searchCountry: String!, category: String!, myLanguage: String!, dataCount: Int!): GoogleGetAppResponse!
   GoogleGetFullDetail(appId: String!, country: String!, language: String!): GoogleGetFullDetailResponse!
   GoogleSaveSearch(searchWords: String!, language: String!, country: String!, category: String!): GoogleSaveSearchResponse!
   GoogleSaveSearchAll(category: String): GoogleSaveSearchAllResponse!
@@ -164,12 +164,6 @@ enum AppleCollections {
   TOP_PAID_IPAD
 }
 
-type LangContainer {
-  language: String
-  country: String
-  category: String
-}
-
 type GoogleGetAppResponse {
   googleApp: [GoogleApp]
   error: String
@@ -186,7 +180,7 @@ type GoogleInspectResponse {
 }
 
 type Mutation {
-  GoogleInspect(appId: String!, country: String!, language: String!, category: String!): GoogleInspectResponse!
+  GoogleInspect(appId: String!, country: String!, category: String!): GoogleInspectResponse!
 }
 
 type GoogleSaveSearchResponse {
@@ -205,12 +199,10 @@ type GoogleApp {
   url: String
   description: String
   summary: String
-  summaryLanguage: String
   installs: String
   icon: String
   langCountry: String
   country: String
-  language: String
   category: String
   score: Float
   scoreText: String
@@ -222,4 +214,9 @@ type GoogleApp {
   comments: [String]
   createdAt: String
   updatedAt: String
+}
+
+type LangContainer {
+  country: String
+  category: String
 }

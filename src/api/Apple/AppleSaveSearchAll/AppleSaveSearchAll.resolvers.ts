@@ -71,7 +71,6 @@ const updateAppInfo = async (
 				let langcountryListString: string
 				const langCountryContainer = new Array()
 				const thisLangCountry: LangContainer = {
-					language,
 					country,
 					category
 				}
