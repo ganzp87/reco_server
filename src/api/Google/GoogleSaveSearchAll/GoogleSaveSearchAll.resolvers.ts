@@ -106,7 +106,6 @@ const updateAppInfo = async (
 							parsedItem = item
 						}
 						if (!langCountryContainer.includes(parsedItem)) {
-							// console.log(appleApp.title, parsedItem)
 							langCountryContainer.push(item)
 						}
 					}
