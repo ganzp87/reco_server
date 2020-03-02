@@ -81,7 +81,6 @@ const updateAppInfo = async (
 				if (googleApp) {
 					// console.log("uniqBy-1")
 					langcountryListString = googleApp.langCountry
-					// console.log(langcountryListString)
 					const parsedContainer = JSON.parse(langcountryListString)
 					const langcountryListUniqq = uniqBy(
 						parsedContainer,
