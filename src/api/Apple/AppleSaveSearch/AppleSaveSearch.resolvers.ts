@@ -24,12 +24,13 @@ const resolvers: Resolvers = {
 			__
 		): Promise<AppleSaveSearchResponse> => {
 			try {
-				const { category, country } = args
+				const { category, language, country } = args
 				const appStoreResult: [AppleApp] = await appStore.search({
 					term: args.searchWords,
 					num: 100,
 					page: 1,
 					country,
+					lang: args.language,
 					throttle: 10
 				})
 				const appIdContainer: any[] = []
@@ -44,6 +45,7 @@ const resolvers: Resolvers = {
 						const getFullDetailApp: AppleApp = await appStore.app({
 							id,
 							country,
+							lang: args.language,
 							ratings: true
 						})
 						const reviews = getFullDetailApp.reviews
@@ -51,6 +53,7 @@ const resolvers: Resolvers = {
 						const primaryGenre = getFullDetailApp.primaryGenre
 						const description = getFullDetailApp.description
 						const ratings = getFullDetailApp.ratings
+						getFullDetailApp.language = language
 						getFullDetailApp.country = country
 						getFullDetailApp.category = category
 						// console.log(getFullDetailApp.title, primaryGenre)
@@ -86,6 +89,7 @@ const resolvers: Resolvers = {
 											{
 												id,
 												country: appleApp.country,
+												language: appleApp.language,
 												category: appleApp.category
 											},
 											{
@@ -96,6 +100,8 @@ const resolvers: Resolvers = {
 												icon: getFullDetailApp.icon,
 												country:
 													getFullDetailApp.country,
+												language:
+													getFullDetailApp.language,
 												category:
 													getFullDetailApp.category,
 												languages:

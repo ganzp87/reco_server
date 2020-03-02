@@ -40,6 +40,9 @@ class AppleApp extends BaseEntity {
 	country: string
 
 	@Column({ type: "text", nullable: true })
+	language: string
+
+	@Column({ type: "text", nullable: true })
 	category: string
 
 	@Column({ type: "text", nullable: true })

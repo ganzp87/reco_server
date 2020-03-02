@@ -24,7 +24,7 @@ const resolvers: Resolvers = {
 			__
 		): Promise<GoogleSaveSearchResponse> => {
 			try {
-				const { category, country } = args
+				const { category, language, country } = args
 				const gPlayResult: [GoogleApp] = await gplay.search({
 					term: args.searchWords,
 					num: 250,
@@ -47,6 +47,7 @@ const resolvers: Resolvers = {
 						const scoreText = app.scoreText
 						const summary = app.summary
 						const genreId = app.genreId
+						app.language = language
 						app.country = country
 						app.category = category
 						if (
@@ -80,6 +81,7 @@ const resolvers: Resolvers = {
 									| undefined = await GoogleApp.findOne({
 									appId,
 									country,
+									language,
 									category
 								})
 								if (googleApp) {
@@ -87,6 +89,7 @@ const resolvers: Resolvers = {
 										{
 											appId,
 											country: googleApp.country,
+											language: googleApp.language,
 											category: googleApp.category
 										},
 										{

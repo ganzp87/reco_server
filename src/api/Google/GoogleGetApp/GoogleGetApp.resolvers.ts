@@ -7,6 +7,7 @@ import {
 import { Resolvers } from "../../../types/resolvers"
 import GoogleApp from "../../../entities/GoogleApp"
 import { getRepository } from "typeorm"
+// import detector from "../../../utils/detector"
 
 const resolvers: Resolvers = {
 	Query: {
@@ -15,10 +16,17 @@ const resolvers: Resolvers = {
 			args: GoogleGetAppQueryArgs,
 			__
 		): Promise<GoogleGetAppResponse> => {
-			const { category, searchCountry, myLanguage, dataCount } = args
+			const {
+				category,
+				language,
+				searchCountry,
+				myLanguage,
+				dataCount
+			} = args
 			const revisedGoogleApp: GoogleApp[] = []
 			let currentDataCount = 0
 			const findingLangCountry: LangContainer = {
+				language,
 				country: searchCountry,
 				category
 			}
@@ -60,11 +68,20 @@ const resolvers: Resolvers = {
 								})
 							} catch (error) {
 								// 영어로 존재하는지 검색
-								gApp = await gplay.app({
-									appId,
-									lang: "en",
-									country: "us"
-								})
+								try {
+									gApp = await gplay.app({
+										appId,
+										lang: "en",
+										country: "us"
+									})
+								} catch (error) {
+									// 본래 국가 언어로 검색
+									gApp = await gplay.app({
+										appId,
+										lang: language,
+										country: searchCountry
+									})
+								}
 							}
 							if (gApp) {
 								revisedGoogleApp.push(gApp)

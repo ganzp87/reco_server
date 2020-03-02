@@ -5,6 +5,7 @@ type GoogleGetAppResponse {
 
 type Query {
 	GoogleGetApp(
+		language: String!
 		searchCountry: String!
 		category: String!
 		myLanguage: String!

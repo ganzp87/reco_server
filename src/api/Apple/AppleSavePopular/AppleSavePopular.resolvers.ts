@@ -18,7 +18,7 @@ const resolvers: Resolvers = {
 			__
 		): Promise<AppleSavePopularResponse> => {
 			try {
-				const { category, country } = args
+				const { category, language, country } = args
 				const appStoreRevisedResult: [AppleApp] | any[] = []
 				const topApp = await AppleTopAppList(country, "food-drink")
 				console.log(topApp)
@@ -27,6 +27,7 @@ const resolvers: Resolvers = {
 					const getFullDetailApp: AppleApp = await appStore.app({
 						id,
 						ratings: true,
+						lang: args.language,
 						country,
 						throttle: 10
 					})
@@ -35,6 +36,7 @@ const resolvers: Resolvers = {
 					const score = getFullDetailApp.score
 					const primaryGenre = getFullDetailApp.primaryGenre
 					const description = getFullDetailApp.description
+					getFullDetailApp.language = language
 					getFullDetailApp.country = country
 					getFullDetailApp.category = category
 					// const languages = getFullDetailApp.languages
@@ -71,12 +73,14 @@ const resolvers: Resolvers = {
 								})
 								if (
 									appleApp?.country === country &&
+									appleApp.language === language &&
 									appleApp.category === category
 								) {
 									await AppleApp.update(
 										{
 											id,
 											country: appleApp.country,
+											language: appleApp.language,
 											category: appleApp.category
 										},
 										{
@@ -86,6 +90,7 @@ const resolvers: Resolvers = {
 												getFullDetailApp.description,
 											icon: getFullDetailApp.icon,
 											country: getFullDetailApp.country,
+											language: getFullDetailApp.language,
 											category: getFullDetailApp.category,
 											languages:
 												getFullDetailApp.languages,
