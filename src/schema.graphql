@@ -6,8 +6,8 @@ type AppleGetAppResponse {
 type Query {
   AppleGetApp(searchCountry: String!, category: String!, myLanguageCountry: String!, dataCount: Int!): AppleGetAppResponse!
   AppleGetFullDetail(appId: String!, country: String!): AppleGetFullDetailResponse!
-  AppleSavePopular(language: String!, country: String!, category: String!): AppleSavePopularResponse!
-  AppleSaveSearch(searchWords: String!, language: String!, country: String!, category: String!): AppleSaveSearchResponse!
+  AppleSavePopular(country: String!, category: String!): AppleSavePopularResponse!
+  AppleSaveSearch(searchWords: String!, country: String!, category: String!): AppleSaveSearchResponse!
   AppleSaveSearchAll(category: String): AppleSaveSearchAllResponse!
   AppleSaveTopList(appleCollection: AppleCollections!, appleCategory: AppleCategories!, country: String!, category: String!): AppleSaveTopListResponse!
   GoogleGetApp(searchCountry: String!, category: String!, myLanguage: String!, dataCount: Int!): GoogleGetAppResponse!
