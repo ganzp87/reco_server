@@ -27,7 +27,6 @@ const resolvers: Resolvers = {
 					const getFullDetailApp: AppleApp = await appStore.app({
 						id,
 						ratings: true,
-						lang: args.language,
 						country,
 						throttle: 10
 					})

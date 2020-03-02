@@ -30,7 +30,6 @@ const resolvers: Resolvers = {
 					num: 100,
 					page: 1,
 					country,
-					lang: args.language,
 					throttle: 10
 				})
 				const appIdContainer: any[] = []
@@ -45,7 +44,6 @@ const resolvers: Resolvers = {
 						const getFullDetailApp: AppleApp = await appStore.app({
 							id,
 							country,
-							lang: args.language,
 							ratings: true
 						})
 						const reviews = getFullDetailApp.reviews
