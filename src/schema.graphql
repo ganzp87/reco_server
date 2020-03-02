@@ -58,7 +58,6 @@ type AppleApp {
   icon: String
   langCountry: String
   country: String
-  language: String
   category: String
   languages: [String]
   developer: String
