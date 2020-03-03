@@ -180,6 +180,9 @@ type GoogleInspectResponse {
 
 type Mutation {
   GoogleInspect(appId: String!, country: String!, category: String!): GoogleInspectResponse!
+  CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse!
+  EmailSignin(email: String!, password: String!): EmailSigninResponse!
+  EmailSignUp(firstName: String!, lastName: String!, email: String!, password: String!, age: Int!): EmailSignUpResponse!
 }
 
 type GoogleSaveSearchResponse {
@@ -218,4 +221,44 @@ type GoogleApp {
 type LangContainer {
   country: String
   category: String
+}
+
+type CompleteEmailVerificationResponse {
+  ok: Boolean!
+  error: String
+}
+
+type EmailSigninResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
+
+type EmailSignUpResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
+
+type User {
+  id: Int!
+  email: String
+  verifiedEmail: Boolean!
+  firstName: String!
+  lastName: String!
+  age: Int
+  password: String
+  fullName: String
+  createdAt: String!
+  updatedAt: String
+}
+
+type Verification {
+  id: Int!
+  target: String!
+  payload: String!
+  key: String!
+  verified: Boolean!
+  createdAt: String!
+  updatedAt: String!
 }
